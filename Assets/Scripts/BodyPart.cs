@@ -13,14 +13,14 @@ public enum BodyPartState
 public class BodyPart : MonoBehaviour
 {
     public BotController botController;
-    public int maxHitpoints;
+    //Set the default maxHitpoints to 100, overridable by the inspector
+    public int maxHitpoints = 100;
     protected int hitpoints;
     public BodyPartState state;
 
     // Start is called before the first frame update
     public void Start()
-    {
-        maxHitpoints = 100;
+    {        
         hitpoints = maxHitpoints;
         botController = GetComponentInParent<BotController>();
         botController.AddHitpoints(maxHitpoints);
