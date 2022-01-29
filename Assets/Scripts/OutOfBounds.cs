@@ -21,6 +21,7 @@ public class OutOfBounds : MonoBehaviour
         BotController bot = other.transform.GetComponent<BotController>();
         if (bot != null)
         {
+            Debug.Log(bot.name + " lost due to going out of bounds");
             bot.Lose();
         }
     }
