@@ -28,6 +28,11 @@ public class Arm : BodyPart
             StartCoroutine(Attack());
             _isFirstFrame = false;
         }
+
+        if (state == BodyPartState.DESTROYED)
+        {
+            StopCoroutine(Attack());
+        }
     }
 
     private IEnumerator Attack()
