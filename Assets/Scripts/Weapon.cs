@@ -26,10 +26,25 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] private float range;
     [SerializeField] private int damage;
+    [SerializeField] private AudioSource audioSource;
     [SerializeField] public float attackRate;
+
+    public Weapon()
+    {
+        if (audioSource)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.loop = false;
+        }
+    }
 
     public void Fire(BotController enemyBot)
     {
+        if (audioSource)
+        {
+            audioSource.Play();
+        }
+
         if (enemyBot.bodyParts.Length < 1)
         {
             Debug.Log("Enemy target " + enemyBot.name + " has no body parts!");
