@@ -16,6 +16,10 @@ public class BotController : MonoBehaviour
     private int _totalHitpoints = 0;
     private int _totalDamage = 0;
 
+    //TODO:  This will be calculated from the weapons.
+    private float desiredDistance = 4f;
+    private float acceptableDistnaceRange = .5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,5 +45,15 @@ public class BotController : MonoBehaviour
     public void AddHitpoints(int hitpoints)
     {
         _totalHitpoints += hitpoints;
+    }
+
+    public float GetDesiredMinDistance()
+    {
+        return desiredDistance - acceptableDistnaceRange;
+    }
+
+    public float GetDesiredMaxDistance()
+    {
+        return desiredDistance + acceptableDistnaceRange;
     }
 }

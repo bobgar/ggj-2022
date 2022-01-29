@@ -339,7 +339,8 @@ MonoBehaviour:
   botController: {fileID: 8537788160334433213}
   maxHitpoints: 0
   state: 0
-  speed: 1
+  speed: 0.01
+  turnspeed: 1
 --- !u!1 &8537788160053459171
 GameObject:
   m_ObjectHideFlags: 0

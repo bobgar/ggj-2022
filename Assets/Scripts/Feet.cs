@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Feet : BodyPart
 {
-    //public Rigidbody rigidbody;
-    public float speed = 1.0f;
+    //TODO will we have turning?
     public float turnspeed = 1.0f;
+
+
+    private float accelerationForward = .0001f;
+    private float accelerationReverse = .00005f;
+    protected Vector3 velocity;
+    private float maxVelocity = .03f;
+    protected float dampening = .985f;
 
     // Start is called before the first frame update
     public void Start()
     {
         base.Start();
     }
-
-    Vector3 m_NewForce;
 
     // Update is called once per frame
     void Update()
@@ -23,8 +27,27 @@ public class Feet : BodyPart
     }
 
     protected void Move()
-    {
-        Vector3 movement = Vector3.Normalize(botController.transform.position - botController.target.transform.position);
+    {        
+        Vector3 distance = botController.target.transform.position - botController.transform.position;
 
+        Vector3 acceleration = Vector3.Normalize(distance);
+        //TODO do we want any turning?
+        //Vector3 movement = botController.transform.forward;
+
+        if(distance.magnitude > botController.GetDesiredMaxDistance() )
+        {
+            acceleration *= accelerationForward;
+            velocity += acceleration;
+            //botController.transform.position += movement;
+        }
+        else if(distance.magnitude < botController.GetDesiredMinDistance() )
+        {
+            acceleration *= -accelerationReverse;
+            velocity += acceleration;
+            //botController.transform.position += movement;
+        }
+        
+        botController.transform.position += velocity;
+        velocity = velocity * dampening;
     }
 }
