@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] public float attackRate;
+    [SerializeField] private Transform projectile; 
 
     public Weapon()
     {
@@ -38,13 +39,13 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    public void Fire(BotController enemyBot)
+    protected virtual void FireEffect(BodyPart target, Vector3 position)
     {
-        if (audioSource)
-        {
-            audioSource.Play();
-        }
+    }
 
+
+    public virtual void Fire(BodyPart instigator, BotController enemyBot)
+    {
         if (enemyBot.bodyParts.Length < 1)
         {
             Debug.Log("Enemy target " + enemyBot.name + " has no body parts!");
@@ -69,6 +70,12 @@ public class Weapon : MonoBehaviour
         BodyPart target = liveParts[new Random().Next(0, liveParts.Count)];
         float distance = (transform.position - target.transform.position).magnitude;
         if (distance > range) return;
+        
+        if (audioSource)
+        {
+            audioSource.Play();
+        }
+        FireEffect(target, instigator.transform.position);
 
         Debug.Log(this.name + " attacks " + enemyBot.name + "'s " + target.name + " for " + damage);
         target.TakeDamage(damage);
