@@ -1,39 +1,35 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
-enum attackType
-{
-    MELEE,
-    RANGED_SINGLE_POINT,
-    RANGED_AOE,
-    RANGED_PROJECTILE,
-}
-
-enum damageType
-{
-    PIERCE,
-    SLASH,
-    BLUNT,
-    FIRE
-}
 
 public class Arm : BodyPart
 {
+    [SerializeField] private Weapon _weapon;
     //Characteristics of Arms.  What do arms have?
 
-    private int _hitpoints;
-    
 
     // Start is called before the first frame update
     public void Start()
     {
         base.Start();
+        StartCoroutine(Attack());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator Attack()
     {
-        
+        while (hitpoints > 0)
+        {
+            if (_weapon)
+            {
+                _weapon.Fire(botController.target);
+                yield return new WaitForSeconds(_weapon.attackRate);
+            }
+            else
+            {
+                // Without this default wait time the coroutine will cause
+                // unity to hang
+                yield return new WaitForSeconds(1);
+            }
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,21 +14,21 @@ public class BodyPart : MonoBehaviour
 {
     public BotController botController;
     public int maxHitpoints;
-    private int hitpoints;
+    protected int hitpoints;
     public BodyPartState state;
 
     // Start is called before the first frame update
     public void Start()
     {
-        botController = GetComponentInParent<BotController>();
+        maxHitpoints = 100;
         hitpoints = maxHitpoints;
+        botController = GetComponentInParent<BotController>();
         botController.AddHitpoints(maxHitpoints);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     //If a body part is destroyed, do whatever is involved.  Play animation?  disable functionality?  etc.
@@ -44,20 +45,22 @@ public class BodyPart : MonoBehaviour
             return;
 
         //Cap damage at as many hitpoints as we have left.
-        if(damage > hitpoints)
+        if (damage > hitpoints)
         {
             damage = hitpoints;
         }
 
         //Apply the damage locally
         hitpoints -= damage;
+        Debug.Log(gameObject.name + " received " + damage + " damage at " + DateTime.Now.Ticks+ " current HP: " + hitpoints);
         //Apply destruction
-        if(hitpoints <= 0)
+        if (hitpoints <= 0)
         {
             Destroy();
         }
+
         //calculate our total damage taken across the whole botController.
-        botController.TakeDamage(damage);
+        // botController.TakeDamage(damage);
     }
 
     public void HealDamage(int healing)
