@@ -13,14 +13,16 @@ public class BotController : MonoBehaviour
     //Note, for our game the target will be the other bot, probably always.
     //Body parts will grab this as needed to take actions on targets (aim, do damage, fire projectiles, etc.)
     //If we ever have more than two bots or more than two targets we may need to change this to an interface.
-    public BotController target;    
+    public BotController target;
+
     //Keeping things flexible with a list of body parts for now.
     public BodyPart[] bodyParts;
 
     private BotState state = BotState.ENGAGE;
-    public BotState State   // property
+
+    public BotState State // property
     {
-        get { return state; }   // get method
+        get { return state; } // get method
         //set { name = value; }  // set method
     }
 
@@ -34,7 +36,6 @@ public class BotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -47,9 +48,9 @@ public class BotController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _totalDamage += damage;
-        if(_totalDamage <= 0)
+        if (_totalDamage >= _totalHitpoints)
         {
-            Lose();            
+            Lose();
         }
     }
 
@@ -73,18 +74,19 @@ public class BotController : MonoBehaviour
         if (state != BotState.DEFEATED)
         {
             Destroy(gameObject.GetComponent<Rigidbody>());
-            foreach(BodyPart b in bodyParts){                
+            foreach (BodyPart b in bodyParts)
+            {
                 b.gameObject.AddComponent<Rigidbody>();
             }
+
             state = BotState.DEFEATED;
             Debug.Log("YOU LOSE");
+            target.Win();
         }
-
-        target.Win();
     }
 
     public void Win()
     {
-        
+        Debug.Log("YOU WIN");
     }
 }

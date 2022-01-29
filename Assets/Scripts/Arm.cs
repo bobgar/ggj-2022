@@ -1,39 +1,50 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
-enum attackType
-{
-    MELEE,
-    RANGED_SINGLE_POINT,
-    RANGED_AOE,
-    RANGED_PROJECTILE,
-}
-
-enum damageType
-{
-    PIERCE,
-    SLASH,
-    BLUNT,
-    FIRE
-}
 
 public class Arm : BodyPart
 {
-    //Characteristics of Arms.  What do arms have?
+    [SerializeField] private Weapon _weapon;
 
-    private int _hitpoints;
+    //Characteristics of Arms.  What do arms have?
     
+    private bool _isFirstFrame;
+
 
     // Start is called before the first frame update
     public void Start()
     {
         base.Start();
+        _isFirstFrame = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        // We need this to prevent a race condition. If we start the coroutine
+        // in start, it's possible that a bot takes damage before it's summed it's
+        // total health using it's body parts.
+        if (_isFirstFrame)
+        {
+            StartCoroutine(Attack());
+            _isFirstFrame = false;
+        }
+    }
+
+    private IEnumerator Attack()
+    {
+        while (hitpoints > 0)
+        {
+            if (_weapon)
+            {
+                _weapon.Fire(botController.target);
+                yield return new WaitForSeconds(_weapon.attackRate);
+            }
+            else
+            {
+                // Without this default wait time the coroutine will cause
+                // unity to hang
+                yield return new WaitForSeconds(1);
+            }
+        }
     }
 }
