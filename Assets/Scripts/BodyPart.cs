@@ -37,6 +37,8 @@ public class BodyPart : MonoBehaviour
     {
         state = BodyPartState.DESTROYED;
         //TODO should be virtual?  will be implemented specific to pieces I think.
+
+        gameObject.AddComponent<Rigidbody>();
     }
 
     public void TakeDamage(int damage)
