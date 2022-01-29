@@ -52,19 +52,16 @@ public class BodyPart : MonoBehaviour
 
         //Apply the damage locally
         hitpoints -= damage;
-        Debug.Log(gameObject.name + " received " + damage + " damage at " + DateTime.Now.Ticks+ " current HP: " + hitpoints);
+        Debug.Log(botController.name + "'s " + gameObject.name + " received " + damage + " damage at " +
+                  DateTime.Now.Ticks + " current HP: " + hitpoints);
         //Apply destruction
         if (hitpoints <= 0)
         {
             Destroy();
+            state = BodyPartState.DESTROYED;
         }
 
-        //calculate our total damage taken across the whole botController.
-        //TODO figure out why botController is getting set to null
-        if (botController)
-        {
-            botController.TakeDamage(damage);
-        }
+        botController.TakeDamage(damage);
     }
 
     public void HealDamage(int healing)

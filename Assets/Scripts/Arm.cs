@@ -5,14 +5,29 @@ using UnityEngine;
 public class Arm : BodyPart
 {
     [SerializeField] private Weapon _weapon;
+
     //Characteristics of Arms.  What do arms have?
+    
+    private bool _isFirstFrame;
 
 
     // Start is called before the first frame update
     public void Start()
     {
         base.Start();
-        StartCoroutine(Attack());
+        _isFirstFrame = true;
+    }
+
+    private void Update()
+    {
+        // We need this to prevent a race condition. If we start the coroutine
+        // in start, it's possible that a bot takes damage before it's summed it's
+        // total health using it's body parts.
+        if (_isFirstFrame)
+        {
+            StartCoroutine(Attack());
+            _isFirstFrame = false;
+        }
     }
 
     private IEnumerator Attack()

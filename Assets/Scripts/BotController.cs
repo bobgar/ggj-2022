@@ -36,10 +36,6 @@ public class BotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        foreach (BodyPart bodyPart in bodyParts)
-        {
-            AddHitpoints(bodyPart.maxHitpoints);
-        }
     }
 
     // Update is called once per frame
