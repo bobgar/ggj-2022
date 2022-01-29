@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botController: {fileID: 0}
-  maxHitpoints: 0
+  maxHitpoints: 100
   state: 0
 --- !u!1 &2701764032628595416
 GameObject:
@@ -170,6 +170,8 @@ MonoBehaviour:
   - {fileID: 2701764031904023930}
   - {fileID: 2701764033799339689}
   - {fileID: 2701764033169697159}
+  desiredDistance: 15
+  acceptableDistnaceRange: 2.5
 --- !u!54 &3883179083141287119
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -184,7 +186,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!1 &2701764033169697160
 GameObject:
@@ -297,8 +299,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botController: {fileID: 0}
-  maxHitpoints: 0
+  maxHitpoints: 100
   state: 0
+  _weapon: {fileID: 0}
 --- !u!1 &2701764033364033775
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,9 +413,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botController: {fileID: 2701764032628595414}
-  maxHitpoints: 0
+  maxHitpoints: 100
   state: 0
   turnspeed: 1
+  accelerationForward: 0.0005
+  accelerationReverse: 0.00025
+  maxVelocity: 0.15
 --- !u!1 &2701764033717720572
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botController: {fileID: 0}
-  maxHitpoints: 0
+  maxHitpoints: 100
   state: 0
 --- !u!1 &2701764033799339690
 GameObject:
@@ -637,5 +643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botController: {fileID: 0}
-  maxHitpoints: 0
+  maxHitpoints: 100
   state: 0
+  _weapon: {fileID: 0}

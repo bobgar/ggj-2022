@@ -41,6 +41,7 @@ public class BotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 
     //Even though we calculate damage per piece,

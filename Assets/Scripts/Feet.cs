@@ -14,6 +14,8 @@ public class Feet : BodyPart
     public float maxVelocity = .15f;
     protected float dampening = .985f;
 
+    protected float jumpchance = .0001f;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -50,7 +52,13 @@ public class Feet : BodyPart
             velocity += acceleration;
             //botController.transform.position += movement;
         }
-        
+
+        if(Random.value < jumpchance)
+        {
+            velocity += new Vector3(0f, .05f, 0f);
+        }
+
+
         botController.transform.position += velocity;
         velocity = velocity * dampening;
     }
