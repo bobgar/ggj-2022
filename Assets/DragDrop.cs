@@ -7,13 +7,13 @@ public enum DropType
 { 
     None,
     Head,
-    Hand,
-    Foot,
-    Heart
+    Arm,
+    Feet,
+    Body
 }
 
 
-public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public RectTransform rectTransform;
     public DropType dropType = DropType.None;
@@ -27,11 +27,6 @@ public class DragDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, I
         canvas = PlanningSceneManager.Instance.gameCanvas;
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-    }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        //Not Implemented
     }
 
     public void OnBeginDrag(PointerEventData eventData)
