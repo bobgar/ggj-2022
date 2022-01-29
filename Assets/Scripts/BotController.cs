@@ -2,23 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum BotState
+{
+    ENGAGE,
+    DEFEATED
+}
+
 public class BotController : MonoBehaviour
 {
     //Note, for our game the target will be the other bot, probably always.
     //Body parts will grab this as needed to take actions on targets (aim, do damage, fire projectiles, etc.)
     //If we ever have more than two bots or more than two targets we may need to change this to an interface.
-    public BotController target;
-    //I'm not sure a public link to a rigid body is needed anymore, but here it is!
-    public Rigidbody rigidbody;
+    public BotController target;    
     //Keeping things flexible with a list of body parts for now.
     public BodyPart[] bodyParts;
+
+    private BotState state = BotState.ENGAGE;
+    public BotState State   // property
+    {
+        get { return state; }   // get method
+        //set { name = value; }  // set method
+    }
 
     private int _totalHitpoints = 0;
     private int _totalDamage = 0;
 
     //TODO:  This will be calculated from the weapons.
-    private float desiredDistance = 4f;
-    private float acceptableDistnaceRange = .5f;
+    public float desiredDistance = 15f;
+    public float acceptableDistnaceRange = 2.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -38,7 +49,7 @@ public class BotController : MonoBehaviour
         _totalDamage += damage;
         if(_totalDamage <= 0)
         {
-            //TODO bot is destoryed, end the match or something
+            Lose();            
         }
     }
 
@@ -55,5 +66,25 @@ public class BotController : MonoBehaviour
     public float GetDesiredMaxDistance()
     {
         return desiredDistance + acceptableDistnaceRange;
+    }
+
+    public void Lose()
+    {
+        if (state != BotState.DEFEATED)
+        {
+            Destroy(gameObject.GetComponent<Rigidbody>());
+            foreach(BodyPart b in bodyParts){                
+                b.gameObject.AddComponent<Rigidbody>();
+            }
+            state = BotState.DEFEATED;
+            Debug.Log("YOU LOSE");
+        }
+
+        target.Win();
+    }
+
+    public void Win()
+    {
+        
     }
 }

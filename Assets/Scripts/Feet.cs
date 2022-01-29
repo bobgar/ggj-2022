@@ -8,10 +8,10 @@ public class Feet : BodyPart
     public float turnspeed = 1.0f;
 
 
-    private float accelerationForward = .0001f;
-    private float accelerationReverse = .00005f;
+    public float accelerationForward = .0005f;
+    public float accelerationReverse = .00025f;
     protected Vector3 velocity;
-    private float maxVelocity = .03f;
+    public float maxVelocity = .15f;
     protected float dampening = .985f;
 
     // Start is called before the first frame update
@@ -23,7 +23,10 @@ public class Feet : BodyPart
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if (botController.State != BotState.DEFEATED)
+        {
+            Move();
+        }
     }
 
     protected void Move()
@@ -31,6 +34,7 @@ public class Feet : BodyPart
         Vector3 distance = botController.target.transform.position - botController.transform.position;
 
         Vector3 acceleration = Vector3.Normalize(distance);
+        acceleration.y = 0;
         //TODO do we want any turning?
         //Vector3 movement = botController.transform.forward;
 
