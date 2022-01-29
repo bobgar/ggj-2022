@@ -60,7 +60,11 @@ public class BodyPart : MonoBehaviour
         }
 
         //calculate our total damage taken across the whole botController.
-        // botController.TakeDamage(damage);
+        //TODO figure out why botController is getting set to null
+        if (botController)
+        {
+            botController.TakeDamage(damage);
+        }
     }
 
     public void HealDamage(int healing)
