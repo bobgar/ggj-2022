@@ -39,12 +39,12 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    protected virtual void FireEffect(BodyPart target, Vector3 position)
+    protected virtual void FireEffect(BodyPart target, Vector3 position, Collider[] ignored)
     {
     }
 
 
-    public virtual void Fire(BodyPart instigator, BotController enemyBot)
+    public virtual void Fire(BodyPart instigator, BotController enemyBot, Collider[] ignored)
     {
         if (enemyBot.bodyParts.Length < 1)
         {
@@ -75,7 +75,7 @@ public class Weapon : MonoBehaviour
         {
             audioSource.Play();
         }
-        FireEffect(target, instigator.transform.position);
+        FireEffect(target, instigator.transform.position, ignored);
 
         Debug.Log(this.name + " attacks " + enemyBot.name + "'s " + target.name + " for " + damage);
         target.TakeDamage(damage);
