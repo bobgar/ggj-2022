@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
@@ -35,10 +36,26 @@ public class Weapon : MonoBehaviour
             return;
         }
 
-        BodyPart target = enemyBot.bodyParts[new Random().Next(0, enemyBot.bodyParts.Length)];
+        List<BodyPart> liveParts = new List<BodyPart>();
+        foreach (BodyPart part in enemyBot.bodyParts)
+        {
+            if (part.state != BodyPartState.DESTROYED)
+            {
+                liveParts.Add(part);
+            }
+        }
+
+        if (liveParts.Count < 1)
+        {
+            Debug.Log("Attacking " + enemyBot.name + " with no live body parts!");
+            return;
+        }
+
+        BodyPart target = liveParts[new Random().Next(0, liveParts.Count)];
         float distance = (transform.position - target.transform.position).magnitude;
         if (distance > range) return;
 
+        Debug.Log(this.name + " attacks " + enemyBot.name + "'s " + target.name + " for " + damage);
         target.TakeDamage(damage);
     }
 }

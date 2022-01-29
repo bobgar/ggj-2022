@@ -313,7 +313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 1000
-  damage: 10
+  damage: 100
   attackRate: 1
 --- !u!4 &1114971822
 Transform:

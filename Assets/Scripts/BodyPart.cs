@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum BodyPartState
@@ -58,7 +59,6 @@ public class BodyPart : MonoBehaviour
         if (hitpoints <= 0)
         {
             Destroy();
-            state = BodyPartState.DESTROYED;
         }
 
         botController.TakeDamage(damage);
