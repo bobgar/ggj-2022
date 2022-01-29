@@ -9,13 +9,14 @@ public class Arm : BodyPart
     //Characteristics of Arms.  What do arms have?
     
     private bool _isFirstFrame;
-
+    private Animator animator;
 
     // Start is called before the first frame update
     public void Start()
     {
         base.Start();
         _isFirstFrame = true;
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -26,7 +27,7 @@ public class Arm : BodyPart
         if (_isFirstFrame)
         {
             StartCoroutine(Attack());
-            _isFirstFrame = false;
+            _isFirstFrame = false;            
         }
 
         if (state == BodyPartState.DESTROYED)
@@ -41,6 +42,7 @@ public class Arm : BodyPart
         {
             if (_weapon)
             {
+                animator.SetTrigger("Attack" );
                 _weapon.Fire(botController.target);
                 yield return new WaitForSeconds(_weapon.attackRate);
             }
