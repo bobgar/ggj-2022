@@ -28,6 +28,7 @@ public class MatchResult
 
     public MatchResult(GameMaster.Artist winner, List<Dictionary<Part, float>> damageByParts)
     {
+        this.winner = winner;
         damageByPart = new Dictionary<Part, float>();
         foreach (Dictionary<Part, float> current in damageByParts)
         {

@@ -22,7 +22,7 @@ public class Match : MonoBehaviour
             List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
-            
+
             MatchResult result = new MatchResult(true, damageByPartList);
 
             GameMaster.Instance.AddMatchResult(result);
