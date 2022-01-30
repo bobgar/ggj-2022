@@ -47,7 +47,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     }
 
     public void OnBeginDrag(PointerEventData eventData)
-    {
+    {        
         transform.parent.GetComponent<DropSlot>().ClearSlot();
         lastPosition = transform.parent;
         transform.SetParent(canvas.transform, true);

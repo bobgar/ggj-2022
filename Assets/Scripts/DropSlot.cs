@@ -71,11 +71,11 @@ public class DropSlot : MonoBehaviour, IDropHandler
         if ( eventData.pointerDrag != null)
         {
             DraggableIcon = eventData.pointerDrag.GetComponent<DragDrop>();
-            AddPart(DraggableIcon);
+            AddPart(DraggableIcon);   
         }
     }
 
-    public void AddPart(DragDrop DaggableIcon)
+    public void AddPart(DragDrop DraggableIcon)
     {
         DraggableIcon.transform.SetParent(transform);
         DraggableIcon.rectTransform.anchoredPosition = Vector2.zero;
