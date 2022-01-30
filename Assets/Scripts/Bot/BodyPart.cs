@@ -92,6 +92,11 @@ public class BodyPart : MonoBehaviour
         botController.TakeDamage(damage);
     }
 
+    public float GetHitPoints()
+    {
+        return hitpoints;
+    }
+
     public void HealDamage(int healing)
     {
         //If we're destroyed, ignore.

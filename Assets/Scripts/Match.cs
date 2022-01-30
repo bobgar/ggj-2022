@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Match : MonoBehaviour
 {
     [SerializeField] private BotController left;
     [SerializeField] private BotController right;
     [SerializeField] private Timer timer;
-    private float _score = 0.0f;
 
     void LateUpdate()
     {
@@ -15,28 +15,46 @@ public class Match : MonoBehaviour
             right.Lose();
             timer.Stop();
             timer.SetText("Draw!");
-            _score = left.GetDamage() + right.GetDamage();
-            GameMaster.Instance.score += _score;
+
+            List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
+            damageByPartList.Add(left.GetDamageByPart());
+            damageByPartList.Add(right.GetDamageByPart());
+            
+            MatchResult result = new MatchResult(true, damageByPartList);
+
+            GameMaster.Instance.AddMatchResult(result);
+
             Destroy(this);
         }
+
         if (right.State == BotState.DEFEATED)
         {
             left.Win();
             timer.Stop();
             timer.SetText("Left wins!");
-            _score = left.GetDamage() + right.GetDamage();
-            GameMaster.Instance.score += _score;
-            GameMaster.Instance.IncrementLeftWins();
+
+            List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
+            damageByPartList.Add(left.GetDamageByPart());
+            damageByPartList.Add(right.GetDamageByPart());
+            MatchResult result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
+            GameMaster.Instance.AddMatchResult(result);
+
+
             Destroy(this);
         }
+
         if (left.State == BotState.DEFEATED)
         {
             right.Win();
             timer.Stop();
             timer.SetText("Right wins!");
-            _score = left.GetDamage() + right.GetDamage();
-            GameMaster.Instance.IncrementRightWins();
-            GameMaster.Instance.score += _score;
+
+            List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
+            damageByPartList.Add(left.GetDamageByPart());
+            damageByPartList.Add(right.GetDamageByPart());
+            MatchResult result = new MatchResult(GameMaster.Artist.TITIAN, damageByPartList);
+            GameMaster.Instance.AddMatchResult(result);
+
             Destroy(this);
         }
     }
