@@ -1,10 +1,11 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Arm : BodyPart
 {
     [SerializeField] private Weapon _weapon;
+    [SerializeField] private AudioSource attackSound;
+    [SerializeField] private float attackVolume = 0.5f;
 
     private bool _isFirstFrame;
     private Animator animator;
@@ -12,8 +13,26 @@ public class Arm : BodyPart
     public void Start()
     {
         base.Start();
+
+        if (attackSound)
+        {
+            attackSound.loop = true;
+            attackSound.volume = attackVolume;
+            attackSound.Play();
+        }
+
+
         _isFirstFrame = true;
         animator = GetComponent<Animator>();
+    }
+
+    public override void Deactivate()
+    {
+        base.Deactivate();
+        if (attackSound)
+        {
+            attackSound.Stop();
+        }
     }
 
     private void Update()
@@ -29,6 +48,10 @@ public class Arm : BodyPart
 
         if (state == BodyPartState.DESTROYED || state == BodyPartState.GAME_OVER)
         {
+            if (attackSound)
+            {
+                attackSound.Stop();
+            }
             StopCoroutine(Attack());
         }
     }

@@ -28,7 +28,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private int damage;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] public float attackRate;
-    [SerializeField] private Transform projectile; 
 
     public Weapon()
     {
