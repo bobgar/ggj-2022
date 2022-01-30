@@ -11,6 +11,8 @@ public class CameraSwoop : MonoBehaviour
     private Vector3 endPosition;
     private Quaternion endRotation;
 
+    public BattleSceneManager battleSceneManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +21,17 @@ public class CameraSwoop : MonoBehaviour
         transform.position = startPosition;
         transform.rotation = startRotation;
         transform.DORotateQuaternion(endRotation, 4f);
-        transform.DOMove(endPosition, 5f);
+        transform.DOMove(endPosition, 5f).OnComplete(CameraFinished);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void CameraFinished()
+    {
+        battleSceneManager.StartBattle();
     }
 }
