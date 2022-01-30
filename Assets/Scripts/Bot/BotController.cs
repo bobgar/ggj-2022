@@ -23,7 +23,7 @@ public class BotController : MonoBehaviour
 
     public BodyPart[] allParts;
 
-    private BotState state = BotState.ENGAGE;
+    private BotState state = BotState.STARTING;
 
     public Collider[] childrenColliders;
 
