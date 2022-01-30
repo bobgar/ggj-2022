@@ -16,7 +16,6 @@ struct TestPartDamage
     }
 }
 
-
 public class RoundEndManager : MonoBehaviour
 {
     public Text[] topRowWins;
@@ -26,6 +25,8 @@ public class RoundEndManager : MonoBehaviour
     public GameObject textLinePrefab;
     public Text totalAmountText;
 
+    private List<MatchResult> matches;
+
     private void Start()
     {
         WinSummarySequence();
@@ -33,23 +34,23 @@ public class RoundEndManager : MonoBehaviour
     
     private void WinSummarySequence()
     {
-        //TestLoader Data
-        bool[] mWins = { true, true, false, false, true };
-        bool[] tWins = { false, false, true, true, false };
+        //Grab Win Data
+        matches = GameMaster.Instance.GetMatchResults();
 
         //Set the wins according to round history
         List<GameObject> winsActive = new List<GameObject>();
-        for (int i = 0; i < 5; i++)
+        int i = 0;
+        foreach(MatchResult match in matches)
         {
-            if (mWins[i] == false && tWins[i] == false) continue;
-            if (mWins[i])
+            if (match.winner == GameMaster.Artist.MICHELANGELO)
             {
                 winsActive.Add(topRowWins[i].gameObject);
             }
-            else if (tWins[i])
+            else if (match.winner == GameMaster.Artist.TITIAN)
             {
                 winsActive.Add(bottomRowWins[i].gameObject);
             }
+            i++;
         }
 
         Sequence winsSequence = DOTween.Sequence();
@@ -64,28 +65,20 @@ public class RoundEndManager : MonoBehaviour
 
     private void RoundSummarySequence()
     {
-        //Test Data
         List<TestPartDamage> partDamage = new List<TestPartDamage>();
-        partDamage.Add(new TestPartDamage("Mech Arm", 175));
-        partDamage.Add(new TestPartDamage("Mech Arm", 132));
-        partDamage.Add(new TestPartDamage("Mech Head", 81));
-        partDamage.Add(new TestPartDamage("Core", 35));
-        partDamage.Add(new TestPartDamage("Mech Arm", 55));
-        partDamage.Add(new TestPartDamage("Mech Arm", 232));
-        partDamage.Add(new TestPartDamage("Mech Head", 151));
-        partDamage.Add(new TestPartDamage("Core", 62));
-        int total = 0;
+        MatchResult match = matches[matches.Count - 1];
 
         //Read off the Parent Object what all the damaged components are
         Sequence partsSequence = DOTween.Sequence();
-        foreach(TestPartDamage part in partDamage)
+        float total = 0.0f;
+        foreach(var damageDescription in match.damageByPart)
         {
-            partsSequence.AppendCallback(() => CreateLineEntry(part.partName, part.partDmg));
+            partsSequence.AppendCallback(() => CreateLineEntry(damageDescription.Key.ToString(), (int)damageDescription.Value));
             partsSequence.AppendInterval(0.25f);
-            total += part.partDmg;
+            total += damageDescription.Value;
         }
         partsSequence.AppendInterval(0.50f);
-        partsSequence.AppendCallback(() => totalAmountText.text = total.ToString() + "c");
+        partsSequence.AppendCallback(() => totalAmountText.text = ((int)total).ToString() + "c");
         partsSequence.Play();
     }
 
