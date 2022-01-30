@@ -24,7 +24,7 @@ public class BotController : MonoBehaviour
 
     public BodyPart[] allParts;
     
-    public Dictionary<Part, BodyPart> parts;
+    public Dictionary<Part, BodyPart> parts = new Dictionary<Part, BodyPart>();
 
     private BotState state = BotState.STARTING;
     
@@ -55,7 +55,7 @@ public class BotController : MonoBehaviour
                     parts.Add(Part.CHEST, b);
                     break;
                 case "Head_Basic":
-                    parts.Add(Part.BASIC_HEAD, b);                    
+                    parts.Add(Part.BASIC_HEAD, b);
                     break;
                 case "Wheels_2 pair":
                     parts.Add(Part.WHEELS, b);
@@ -69,10 +69,10 @@ public class BotController : MonoBehaviour
                 case "Sythe Arms R":
                     parts.Add(Part.SYTHE_ARM_RIGHT, b);
                     break;
-                case "Windmill Arms L":
+                case "Windmill Arm L":
                     parts.Add(Part.WINDMILL_ARM_LEFT, b);
                     break;
-                case "Windmill Arms R":
+                case "Windmill Arm R":
                     parts.Add(Part.WINDMILL_ARM_RIGHT, b);
                     break;
                 case "Hammer Hand L":
@@ -85,22 +85,28 @@ public class BotController : MonoBehaviour
                     parts.Add(Part.DRAGON_CLAW_FEET, b);
                     break;
                 case "Cannon Head":
-                    parts.Add(Part.DRAGON_CLAW_FEET, b);
+                    parts.Add(Part.TANK_HEAD, b);
                     break;
             }
             b.gameObject.SetActive(false);
         }
+        //Set the CHEST to active.
         parts[Part.CHEST].gameObject.SetActive(true);
     }
 
     public void AddPiece(Part part)
     {
-        parts[part].gameObject.SetActive(true);
+        if (parts.ContainsKey(part))
+        {
+            parts[part].gameObject.SetActive(true);
+        }
     }
 
     public void RemovePiece(Part part)
     {
-        parts[part].gameObject.SetActive(false);
+        if (parts.ContainsKey(part)){
+            parts[part].gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame

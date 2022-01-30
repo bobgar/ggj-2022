@@ -92,7 +92,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 96
   m_CollisionDetection: 0
@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 534cdd1d9514f5c4da256c53bd8513c6, type: 3}
       propertyPath: m_Name
-      value: 'Chest Piece '
+      value: Chest Piece
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 534cdd1d9514f5c4da256c53bd8513c6, type: 3}
@@ -286,6 +286,7 @@ MonoBehaviour:
   botController: {fileID: 1215862797237531861}
   maxHitpoints: 100
   state: 0
+  _weapon: {fileID: 0}
 --- !u!1001 &2220857146337053703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -398,6 +399,8 @@ MonoBehaviour:
   maxHitpoints: 100
   state: 0
   _weapon: {fileID: 0}
+  attackSound: {fileID: 0}
+  attackVolume: 0.5
 --- !u!4 &1826395138452335596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97a9c21083eb4fc40a473c64b3845db7, type: 3}
@@ -493,10 +496,12 @@ MonoBehaviour:
   botController: {fileID: 0}
   maxHitpoints: 100
   state: 0
-  turnspeed: 1
+  audioSource: {fileID: 0}
+  playThreshold: 0.01
   accelerationForward: 0.0005
   accelerationReverse: 0.00025
-  maxVelocity: 0.15
+  jumpChance: 0.0001
+  _lastMovement: 0
 --- !u!4 &2937935008436936022 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 857feb1e5937c8442804af3a62d47278, type: 3}
@@ -619,6 +624,8 @@ MonoBehaviour:
   maxHitpoints: 100
   state: 0
   _weapon: {fileID: 0}
+  attackSound: {fileID: 0}
+  attackVolume: 0.5
 --- !u!1001 &5062312848003870237
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -709,10 +716,12 @@ MonoBehaviour:
   botController: {fileID: 1215862797237531861}
   maxHitpoints: 100
   state: 0
-  turnspeed: 1
+  audioSource: {fileID: 0}
+  playThreshold: 0.01
   accelerationForward: 0.0005
   accelerationReverse: 0.00025
-  maxVelocity: 0.15
+  jumpChance: 0.0001
+  _lastMovement: 0
 --- !u!1 &5387673021131899914 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 901897122485332503, guid: 0190dfdb19b0a194e934e87eb0a1c9e7, type: 3}
@@ -846,6 +855,7 @@ MonoBehaviour:
   botController: {fileID: 0}
   maxHitpoints: 100
   state: 0
+  _weapon: {fileID: 0}
 --- !u!1001 &6865344539907163103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -937,10 +947,12 @@ MonoBehaviour:
   botController: {fileID: 0}
   maxHitpoints: 100
   state: 0
-  turnspeed: 1
+  audioSource: {fileID: 0}
+  playThreshold: 0.01
   accelerationForward: 0.0005
   accelerationReverse: 0.00025
-  maxVelocity: 0.15
+  jumpChance: 0.0001
+  _lastMovement: 0
 --- !u!4 &6398527659389281332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a8c41b15bb9f47042ad2737a98855c7e, type: 3}
@@ -1063,6 +1075,8 @@ MonoBehaviour:
   maxHitpoints: 100
   state: 0
   _weapon: {fileID: 0}
+  attackSound: {fileID: 0}
+  attackVolume: 0.5
 --- !u!1001 &7005075052374429419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1180,6 +1194,8 @@ MonoBehaviour:
   maxHitpoints: 100
   state: 0
   _weapon: {fileID: 0}
+  attackSound: {fileID: 0}
+  attackVolume: 0.5
 --- !u!1001 &7449965598788766892
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1297,6 +1313,8 @@ MonoBehaviour:
   maxHitpoints: 100
   state: 0
   _weapon: {fileID: 0}
+  attackSound: {fileID: 0}
+  attackVolume: 0.5
 --- !u!1001 &8354758909085313453
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1414,3 +1432,5 @@ MonoBehaviour:
   maxHitpoints: 100
   state: 0
   _weapon: {fileID: 0}
+  attackSound: {fileID: 0}
+  attackVolume: 0.5

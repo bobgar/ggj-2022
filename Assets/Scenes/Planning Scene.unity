@@ -263,6 +263,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1280800842}
     m_Modifications:
+    - target: {fileID: 1276912770735038678, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844981976578288533, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844981976578288533, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: armLocation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2978559604512708300, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -350,6 +362,18 @@ PrefabInstance:
     - target: {fileID: 2978559604512708303, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
       propertyPath: m_Name
       value: BotSelector - Right
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543331479656205070, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146958984134636972, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456717826888494807, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
@@ -483,6 +507,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCanvas: {fileID: 0}
+  LeftBot: {fileID: 0}
+  RightBot: {fileID: 0}
 --- !u!1 &1462502088
 GameObject:
   m_ObjectHideFlags: 0
@@ -1404,6 +1430,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1280800842}
     m_Modifications:
+    - target: {fileID: 1276912770735038678, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844981976578288533, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844981976578288533, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: armLocation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2978559604512708300, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1491,6 +1529,18 @@ PrefabInstance:
     - target: {fileID: 2978559604512708303, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
       propertyPath: m_Name
       value: BotSelector - Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 3543331479656205070, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4146958984134636972, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7456717826888494807, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
+      propertyPath: bot
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 159121b8aedd31b4194d61a30f52efe3, type: 3}
