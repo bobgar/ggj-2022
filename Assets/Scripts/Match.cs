@@ -22,7 +22,7 @@ public class Match : MonoBehaviour
             List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
-            
+
             MatchResult result = new MatchResult(true, damageByPartList);
 
             GameMaster.Instance.AddMatchResult(result);
@@ -40,7 +40,7 @@ public class Match : MonoBehaviour
             List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
-            MatchResult result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
+            MatchResult result = new MatchResult(GameMaster.Artist.TITIAN, damageByPartList);
             GameMaster.Instance.AddMatchResult(result);
 
             StartCoroutine(waitForEnd());
@@ -56,7 +56,7 @@ public class Match : MonoBehaviour
             List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
-            MatchResult result = new MatchResult(GameMaster.Artist.TITIAN, damageByPartList);
+            MatchResult result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
             GameMaster.Instance.AddMatchResult(result);
             
             StartCoroutine(waitForEnd());
