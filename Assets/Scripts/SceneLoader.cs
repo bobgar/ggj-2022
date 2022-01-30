@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour
         { SceneEnum.DIALOG,"Dialog Scene" },
         { SceneEnum.PLAN ,"Planning Scene" },
         { SceneEnum.BATTLE,"Battle Scene" },        
-        { SceneEnum.END,"End Scene" }
+        { SceneEnum.END,"Round End Scene" }
     };
 
     // Start is called before the first frame update

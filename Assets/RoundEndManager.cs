@@ -89,4 +89,11 @@ public class RoundEndManager : MonoBehaviour
         newRow.expenseText.text = partName;
         newRow.numberText.text = partCost.ToString() + "c";
     }
+
+    public void EndRoundEnd()
+    {
+        SceneLoader.instance.LoadScene(SceneEnum.BATTLE);
+        SceneLoader.instance.LoadScene(SceneEnum.PLAN);
+        SceneLoader.instance.RemoveScene(SceneEnum.END);
+    }
 }
