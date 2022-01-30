@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public enum SceneEnum
 {
     START,
-    INIT,
+    DIALOG,
     PLAN,
     BATTLE,
     END
@@ -19,7 +19,7 @@ public class SceneLoader : MonoBehaviour
     public Dictionary<SceneEnum, string> scenes = new Dictionary<SceneEnum, string>()
     {
         { SceneEnum.START,"Start Scene" },
-        { SceneEnum.INIT,"Initial Scene" },
+        { SceneEnum.DIALOG,"Dialog Scene" },
         { SceneEnum.PLAN ,"Planning Scene" },
         { SceneEnum.BATTLE,"Battle Scene" },        
         { SceneEnum.END,"End Scene" }

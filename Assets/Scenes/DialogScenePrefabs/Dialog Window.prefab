@@ -525,6 +525,7 @@ GameObject:
   - component: {fileID: 8178006256434653712}
   - component: {fileID: 8178006256434653715}
   - component: {fileID: 8178006255216805332}
+  - component: {fileID: 8178006255216805335}
   m_Layer: 5
   m_Name: Dialog Window
   m_TagString: Untagged
@@ -609,3 +610,16 @@ MonoBehaviour:
   SpeakerLabel: {fileID: 8178006254392334704}
   MichelangeloSprite: {fileID: 392385390}
   TitianSprite: {fileID: 846480098}
+  ContinuePanel: {fileID: 0}
+--- !u!225 &8178006255216805335
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8178006256434653805}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

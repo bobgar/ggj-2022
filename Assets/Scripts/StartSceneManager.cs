@@ -13,7 +13,7 @@ public class StartSceneManager : MonoBehaviour
     public void OnStartButton()
     {
         Debug.Log("Start Button Pressed");
-        SceneLoader.instance.LoadScene(SceneEnum.INIT);
+        SceneLoader.instance.LoadScene(SceneEnum.DIALOG);
         SceneLoader.instance.RemoveScene(SceneEnum.START);        
     }
 
