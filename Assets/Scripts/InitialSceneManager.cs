@@ -69,8 +69,8 @@ public class InitialSceneManager : MonoBehaviour
 
             if (currentSequence >= dialogSequenceIDs.Length)
             {
-                SceneLoader.instance.LoadScene(SceneEnum.PLAN);
                 SceneLoader.instance.LoadScene(SceneEnum.BATTLE);
+                SceneLoader.instance.LoadScene(SceneEnum.PLAN);
                 SceneLoader.instance.RemoveScene(SceneEnum.DIALOG);
             }
             else

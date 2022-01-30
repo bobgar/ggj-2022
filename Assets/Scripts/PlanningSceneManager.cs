@@ -31,6 +31,7 @@ public class PlanningSceneManager : MonoBehaviour
 
     private void Start()
     {
+        //Note need to load Battle scene first to be able to grab here.
         Scene s = SceneLoader.instance.GetScene(SceneEnum.BATTLE);
         foreach (GameObject g in s.GetRootGameObjects())
         {

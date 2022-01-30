@@ -67,9 +67,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
             eventData.pointerEnter.GetComponent<DropSlot>() == null ||
             eventData.pointerEnter.GetComponent<DropSlot>().dropType != dropType)
         {
-            transform.SetParent(lastPosition.transform);
-            rectTransform.anchoredPosition = Vector2.zero;
-            lastPosition.GetComponent<DropSlot>().FillSlot();
+            lastPosition.GetComponent<DropSlot>().AddPart(this);
         }
         
         canvasGroup.alpha = 1.0f;
