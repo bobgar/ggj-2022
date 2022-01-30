@@ -1,13 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class GameMaster : MonoBehaviour
 {
+    public enum Artist
+    {
+        MICHELANGELO,
+        TITIAN
+    }
+
     private static GameMaster _gm;
 
     [SerializeField] private int matchesToWin = 3;
-    public float score = 0;
-    public int leftWins = 0;
-    public int rightWins = 0;
+    private float _score = 0;
+    private int _michelangeloWins = 0;
+    private int _titianWins = 0;
+
+    private List<MatchResult> matchResults = new List<MatchResult>();
 
     public static GameMaster Instance => _gm;
 
@@ -27,26 +36,35 @@ public class GameMaster : MonoBehaviour
 
     public float GetScore()
     {
-        return score;
-    }
-
-    public void AddScore(float newScore)
-    {
-        this.score += newScore;
-    }
-
-    public void IncrementLeftWins()
-    {
-        leftWins += 1;
-    }
-
-    public void IncrementRightWins()
-    {
-        rightWins += 1;
+        return _score;
     }
 
     public bool IsGameOver()
     {
-        return leftWins == matchesToWin || rightWins == matchesToWin;
+        return _michelangeloWins == matchesToWin || _titianWins == matchesToWin;
+    }
+
+    public List<MatchResult> GetMatchResults()
+    {
+        return matchResults;
+    }
+
+    public void AddMatchResult(MatchResult result)
+    {
+        if (!result.isTie)
+        {
+            if (result.winner == Artist.TITIAN)
+            {
+                _titianWins++;
+            }
+
+            if (result.winner == Artist.MICHELANGELO)
+            {
+                _michelangeloWins++;
+            }
+        }
+
+        matchResults.Add(result);
+        _score += result.GetScore();
     }
 }
