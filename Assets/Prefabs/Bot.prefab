@@ -226,7 +226,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 96
   m_CollisionDetection: 0
 --- !u!1 &7164859318235272706
 GameObject:
@@ -376,6 +376,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 534cdd1d9514f5c4da256c53bd8513c6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 534cdd1d9514f5c4da256c53bd8513c6, type: 3}
       propertyPath: m_Name
       value: Chest Piece
@@ -471,6 +475,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 1fc9b3e0ec56a754783e96182909f120, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 1fc9b3e0ec56a754783e96182909f120, type: 3}
       propertyPath: m_Name
       value: Head_Basic
@@ -567,6 +575,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 97a9c21083eb4fc40a473c64b3845db7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 97a9c21083eb4fc40a473c64b3845db7, type: 3}
       propertyPath: m_Name
       value: Hammer Hand L
@@ -686,6 +698,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 857feb1e5937c8442804af3a62d47278, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 857feb1e5937c8442804af3a62d47278, type: 3}
       propertyPath: m_Name
       value: Tank Threads
@@ -787,6 +803,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 48156a7257895f94bbd627553e896b8c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 48156a7257895f94bbd627553e896b8c, type: 3}
       propertyPath: m_Name
       value: Windmill Arm L
@@ -862,6 +882,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8139250978673247851}
     m_Modifications:
+    - target: {fileID: -8719454951683086028, guid: 0190dfdb19b0a194e934e87eb0a1c9e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: -8679921383154817045, guid: 0190dfdb19b0a194e934e87eb0a1c9e7, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -914,6 +938,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8198999868943737385, guid: 0190dfdb19b0a194e934e87eb0a1c9e7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 8519886197192160826, guid: 0190dfdb19b0a194e934e87eb0a1c9e7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1040,6 +1068,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f07e74160d203604f8f78b06c46c5c23, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: f07e74160d203604f8f78b06c46c5c23, type: 3}
       propertyPath: m_Name
       value: Cannon Head
@@ -1136,6 +1168,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a8c41b15bb9f47042ad2737a98855c7e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: a8c41b15bb9f47042ad2737a98855c7e, type: 3}
       propertyPath: m_Name
       value: Dragon Claw Feet
@@ -1238,6 +1274,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 0ae891eae4ebd7047b8dde6f029c7a33, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 0ae891eae4ebd7047b8dde6f029c7a33, type: 3}
       propertyPath: m_Name
       value: Sythe Arms R
@@ -1357,6 +1397,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5b87fb113c722974e985ce8bd4888c89, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: 5b87fb113c722974e985ce8bd4888c89, type: 3}
       propertyPath: m_Name
       value: Sythe Arms L
@@ -1476,6 +1520,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3a76909bf8548f4898cc121dc98d6df, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: d3a76909bf8548f4898cc121dc98d6df, type: 3}
       propertyPath: m_Name
       value: Hammer Hand R
@@ -1595,6 +1643,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: e90f293fb9ad8334eb44e45030bd87e6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0c231aa3d453f8c418b325eb2a88f94e, type: 2}
     - target: {fileID: 919132149155446097, guid: e90f293fb9ad8334eb44e45030bd87e6, type: 3}
       propertyPath: m_Name
       value: Windmill Arm R
