@@ -39,22 +39,43 @@ public class InitialSceneManager : MonoBehaviour
     private void Start()
     {
         currentSequence = 0;
+        TriggerNextDialog();
     }
 
     private void Update()
     {
         if( Input.GetMouseButtonDown(0) )
         {
-            string stringID = dialogSequenceIDs[currentSequence].dialogID;
-            string currentString = StringManager.Instance.GetString(stringID);
-            Speaker currentSpeaker = dialogSequenceIDs[currentSequence].speaker;
-
-            StartCoroutine(PlayTalkingAnimation(currentSpeaker, currentString.Length / 50.0f));
-            DialogWindow.SetSpeaker(currentSpeaker);
-            DialogWindow.SetText(currentString);
-
-            currentSequence++;
+            if (currentSequence >= dialogSequenceIDs.Length)
+            {
+                SceneLoader.instance.LoadScene(SceneEnum.PLAN);
+                SceneLoader.instance.LoadScene(SceneEnum.BATTLE);
+                SceneLoader.instance.RemoveScene(SceneEnum.INIT);
+            }
+            else
+            {
+                TriggerNextDialog();
+            }
         }
+    }
+
+    private void TriggerNextDialog()
+    {
+        //Check if our sequence is out of bounds.  If so return.
+        if(currentSequence >= dialogSequenceIDs.Length)
+        {
+            return;
+        }
+
+        string stringID = dialogSequenceIDs[currentSequence].dialogID;
+        string currentString = StringManager.Instance.GetString(stringID);
+        Speaker currentSpeaker = dialogSequenceIDs[currentSequence].speaker;
+
+        StartCoroutine(PlayTalkingAnimation(currentSpeaker, currentString.Length / 50.0f));
+        DialogWindow.SetSpeaker(currentSpeaker);
+        DialogWindow.SetText(currentString);
+
+        currentSequence++;        
     }
 
     IEnumerator PlayTalkingAnimation(Speaker speaker, float time)

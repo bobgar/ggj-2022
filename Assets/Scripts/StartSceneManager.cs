@@ -16,11 +16,14 @@ public class StartSceneManager : MonoBehaviour
     public void OnStartButton()
     {
         Debug.Log("Start Button Pressed");
+        SceneLoader.instance.LoadScene(SceneEnum.INIT);
+        SceneLoader.instance.RemoveScene(SceneEnum.START);        
     }
 
     public void OnExitButton()
     {
         Debug.Log("Exit Button Pressed");
+        Application.Quit();
     }
     
 }
