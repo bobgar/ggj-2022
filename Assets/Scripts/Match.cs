@@ -5,12 +5,7 @@ public class Match : MonoBehaviour
     [SerializeField] private BotController left;
     [SerializeField] private BotController right;
     [SerializeField] private Timer timer;
-    private bool isActive;
-
-    private void Awake()
-    {
-        isActive = true;
-    }
+    private float _score = 0.0f;
 
     void LateUpdate()
     {
@@ -18,23 +13,31 @@ public class Match : MonoBehaviour
         {
             left.Lose();
             right.Lose();
-            isActive = false;
             timer.Stop();
             timer.SetText("Draw!");
+            _score = left.GetDamage() + right.GetDamage();
+            GameMaster.Instance.score += _score;
+            Destroy(this);
         }
         if (right.State == BotState.DEFEATED)
         {
-            isActive = false;
             left.Win();
             timer.Stop();
             timer.SetText("Left wins!");
+            _score = left.GetDamage() + right.GetDamage();
+            GameMaster.Instance.score += _score;
+            GameMaster.Instance.IncrementLeftWins();
+            Destroy(this);
         }
         if (left.State == BotState.DEFEATED)
         {
-            isActive = false;
             right.Win();
             timer.Stop();
             timer.SetText("Right wins!");
+            _score = left.GetDamage() + right.GetDamage();
+            GameMaster.Instance.IncrementRightWins();
+            GameMaster.Instance.score += _score;
+            Destroy(this);
         }
     }
 }
