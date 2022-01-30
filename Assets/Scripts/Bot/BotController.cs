@@ -232,4 +232,9 @@ public class BotController : MonoBehaviour
 
         state = BotState.FIGHTING;
     }
+
+    public float GetHealthPercentage()
+    {
+        return _totalDamage /_totalHitpoints;
+    }
 }
