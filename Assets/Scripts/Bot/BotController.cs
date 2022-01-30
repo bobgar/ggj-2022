@@ -6,8 +6,8 @@ using UnityEngine;
 public enum BotState
 {
     STARTING,
-    ENGAGE,
-    IN_ACTIVE,
+    FIGHTING,
+    VICTORIOUS,
     DEFEATED
 }
 
@@ -88,7 +88,7 @@ public class BotController : MonoBehaviour
 
     public void Lose()
     {
-        if (state == BotState.ENGAGE)
+        if (state == BotState.FIGHTING)
         {
             Destroy(gameObject.GetComponent<Rigidbody>());
             foreach (BodyPart b in activeParts)
@@ -103,9 +103,18 @@ public class BotController : MonoBehaviour
 
     public void Win()
     {
-        foreach (BodyPart b in activeParts)
+        if (state == BotState.FIGHTING)
         {
-            b.Deactivate();
+            foreach (BodyPart b in activeParts)
+            {
+                b.Deactivate();
+            }
+            state = BotState.VICTORIOUS;
         }
+    }
+
+    public void StartBattle()
+    {
+        state = BotState.FIGHTING;
     }
 }

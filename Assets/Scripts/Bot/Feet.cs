@@ -25,7 +25,7 @@ public class Feet : BodyPart
     // Update is called once per frame
     void Update()
     {
-        if (botController.State != BotState.DEFEATED && botController.State != BotState.IN_ACTIVE)
+        if (botController.State == BotState.FIGHTING)
         {
             Move();
         }

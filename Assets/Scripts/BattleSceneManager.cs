@@ -23,12 +23,14 @@ public class BattleSceneManager : MonoBehaviour
     }
 
     public void StartCamera()
-    {
+    {        
         cameraSwoop.gameObject.SetActive(true);
     }
 
     public void StartBattle()
     {
         HUD.SetActive(true);
+        LeftBot.StartBattle();
+        RightBot.StartBattle();
     }
 }

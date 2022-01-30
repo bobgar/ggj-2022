@@ -24,7 +24,6 @@ public class SceneLoader : MonoBehaviour
         { SceneEnum.BATTLE,"Battle Scene" },        
         { SceneEnum.END,"End Scene" }
     };
-    
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +40,11 @@ public class SceneLoader : MonoBehaviour
     public void RemoveScene(SceneEnum scene)
     {
         SceneManager.UnloadSceneAsync(scenes[scene]);
+    }
+
+    public Scene GetScene(SceneEnum scene)
+    {
+        return SceneManager.GetSceneByName(scenes[scene]);
     }
 
 }
