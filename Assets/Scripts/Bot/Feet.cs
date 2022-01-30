@@ -28,6 +28,12 @@ public class Feet : BodyPart
             audioSource.volume = 0.1f;
         }
     }
+    
+    public override void Deactivate()
+    {
+        base.Deactivate();
+        audioSource.Stop();
+    }
 
     void FixedUpdate()
     {
