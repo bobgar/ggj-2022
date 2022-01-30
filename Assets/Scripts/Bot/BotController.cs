@@ -23,11 +23,11 @@ public class BotController : MonoBehaviour
     public BodyPart[] activeParts;
 
     public BodyPart[] allParts;
-
-    public Dictionary<Part, BodyPart> parts;
+    
+    public Dictionary<Part, BodyPart> parts = new Dictionary<Part, BodyPart>();
 
     private BotState state = BotState.STARTING;
-
+    
     public Collider[] childrenColliders;
 
     public BotState State // property
@@ -48,10 +48,9 @@ public class BotController : MonoBehaviour
     {
         childrenColliders = GetComponentsInChildren<Collider>();
 
-        foreach (BodyPart b in allParts)
-        {
-            switch (b.name)
-            {
+        foreach(BodyPart b in allParts)
+        {            
+            switch (b.name){
                 case "Chest Piece":
                     parts.Add(Part.CHEST, b);
                     break;
@@ -89,9 +88,9 @@ public class BotController : MonoBehaviour
                     parts.Add(Part.TANK_HEAD, b);
                     break;
             }
-
             b.gameObject.SetActive(false);
         }
+        //Set the CHEST to active.
         parts[Part.CHEST].gameObject.SetActive(true);
     }
 
@@ -218,13 +217,14 @@ public class BotController : MonoBehaviour
             {
                 b.Deactivate();
             }
-
             state = BotState.VICTORIOUS;
         }
     }
 
     public void StartBattle()
     {
+        activeParts = gameObject.GetComponentsInChildren<BodyPart>(false);
+        
         state = BotState.FIGHTING;
     }
 }
