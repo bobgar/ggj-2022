@@ -6,12 +6,9 @@ public class Arm : BodyPart
 {
     [SerializeField] private Weapon _weapon;
 
-    //Characteristics of Arms.  What do arms have?
-    
     private bool _isFirstFrame;
     private Animator animator;
 
-    // Start is called before the first frame update
     public void Start()
     {
         base.Start();
@@ -27,10 +24,10 @@ public class Arm : BodyPart
         if (_isFirstFrame)
         {
             StartCoroutine(Attack());
-            _isFirstFrame = false;            
+            _isFirstFrame = false;
         }
 
-        if (state == BodyPartState.DESTROYED)
+        if (state == BodyPartState.DESTROYED || state == BodyPartState.GAME_OVER)
         {
             StopCoroutine(Attack());
         }
@@ -38,20 +35,11 @@ public class Arm : BodyPart
 
     private IEnumerator Attack()
     {
-        while (hitpoints > 0)
+        while (hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
         {
-            if (_weapon)
-            {
-                animator.SetTrigger("Attack" );
-                _weapon.Fire(this, botController.target, botController.childrenColliders);
-                yield return new WaitForSeconds(_weapon.attackRate);
-            }
-            else
-            {
-                // Without this default wait time the coroutine will cause
-                // unity to hang
-                yield return new WaitForSeconds(1);
-            }
+            animator.SetTrigger("Attack");
+            _weapon.Fire(this, botController.target, botController.childrenColliders);
+            yield return new WaitForSeconds(_weapon.attackRate);
         }
     }
 }
