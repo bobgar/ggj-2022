@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class StartSceneManager : MonoBehaviour
 {
-    
-
-
     private void Start()
     {
         
