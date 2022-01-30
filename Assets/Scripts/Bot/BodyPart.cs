@@ -49,8 +49,7 @@ public class BodyPart : MonoBehaviour
     public void Start()
     {        
         hitpoints = maxHitpoints;
-        botController = GetComponentInParent<BotController>();
-        botController.AddHitpoints(maxHitpoints);
+        botController = GetComponentInParent<BotController>();        
     }
 
     // Update is called once per frame
@@ -65,6 +64,7 @@ public class BodyPart : MonoBehaviour
         //TODO should be virtual?  will be implemented specific to pieces I think.
 
         gameObject.AddComponent<Rigidbody>();
+        gameObject.transform.SetParent(null);
     }
 
     public void TakeDamage(int damage)

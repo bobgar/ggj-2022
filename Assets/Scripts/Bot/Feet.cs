@@ -32,7 +32,10 @@ public class Feet : BodyPart
     public override void Deactivate()
     {
         base.Deactivate();
-        audioSource.Stop();
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+        }
     }
 
     void FixedUpdate()

@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a253e4c8b01a41a38aacdd795f82e2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 25
+  range: 60
   damage: 60
   audioSource: {fileID: 0}
   attackRate: 2
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a253e4c8b01a41a38aacdd795f82e2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 25
+  range: 40
   damage: 15
   audioSource: {fileID: 0}
   attackRate: 0.5
@@ -226,7 +226,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 96
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &7164859318235272706
 GameObject:
@@ -275,7 +275,7 @@ MonoBehaviour:
   range: 1000
   damage: 30
   audioSource: {fileID: 0}
-  attackRate: 2
+  attackRate: 5
   projectile: {fileID: 2944416058606438573, guid: 853f60a102fbe7a4184c677b4d56cec3, type: 3}
 --- !u!1 &7903064206470788546
 GameObject:
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a253e4c8b01a41a38aacdd795f82e2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 55
+  range: 70
   damage: 100
   audioSource: {fileID: 0}
   attackRate: 3
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botController: {fileID: 1215862797237531861}
-  maxHitpoints: 100
+  maxHitpoints: 400
   state: 0
 --- !u!1001 &1655405728247949321
 PrefabInstance:

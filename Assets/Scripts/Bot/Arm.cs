@@ -58,11 +58,15 @@ public class Arm : BodyPart
 
     private IEnumerator Attack()
     {
-        while (botController.State == BotState.FIGHTING && hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
+        while ( hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
         {
-            animator.SetTrigger("Attack");
-            _weapon.Fire(this, botController.target, botController.childrenColliders);
-            yield return new WaitForSeconds(_weapon.attackRate);
+            if (botController.State == BotState.FIGHTING)
+            {
+                animator.SetTrigger("Attack");
+                _weapon.Fire(this, botController.target, botController.childrenColliders);                
+            }
+            
+            yield return new WaitForSeconds(_weapon.attackRate + Random.value);
         }
     }
 }

@@ -33,9 +33,12 @@ public class Head : BodyPart
 
     private IEnumerator Attack()
     {
-        while (botController.State == BotState.FIGHTING && hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
+        while (hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
         {
-            _weapon.Fire(this, botController.target, botController.childrenColliders);
+            if (botController.State == BotState.FIGHTING)
+            {
+                _weapon.Fire(this, botController.target, botController.childrenColliders);                
+            }
             yield return new WaitForSeconds(_weapon.attackRate);
         }
     }

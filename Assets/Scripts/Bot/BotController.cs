@@ -225,6 +225,11 @@ public class BotController : MonoBehaviour
     {
         activeParts = gameObject.GetComponentsInChildren<BodyPart>(false);
         
+        foreach(BodyPart bp in activeParts)
+        {
+            AddHitpoints(bp.maxHitpoints);
+        }
+
         state = BotState.FIGHTING;
     }
 }
