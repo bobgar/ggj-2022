@@ -8,6 +8,7 @@ public enum BodyPartState
 {
     NORMAL,
     MALFUNCTIONING, //TODO cool idea?  separate function when in bad state somehow?
+    GAME_OVER,
     DESTROYED,
 }
 
@@ -18,6 +19,12 @@ public class BodyPart : MonoBehaviour
     public int maxHitpoints = 100;
     protected int hitpoints;
     public BodyPartState state;
+
+
+    public virtual void Deactivate()
+    {
+        state = BodyPartState.GAME_OVER;
+    }
 
     // Start is called before the first frame update
     public void Start()
