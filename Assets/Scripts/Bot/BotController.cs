@@ -235,6 +235,12 @@ public class BotController : MonoBehaviour
 
     public float GetHealthPercentage()
     {
-        return ((float)_totalDamage) / ((float)_totalHitpoints);
+        if (_totalHitpoints > 0)
+        {
+            return 1 - ((float)_totalDamage) / ((float)_totalHitpoints);
+        } else
+        {
+            return 1;
+        }
     }
 }
