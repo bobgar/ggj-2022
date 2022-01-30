@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum BotState
 {
     ENGAGE,
+    IN_ACTIVE,
     DEFEATED
 }
 
@@ -44,7 +46,14 @@ public class BotController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    private void LateUpdate()
+    {
+        if (_totalDamage >= _totalHitpoints)
+        {
+            Lose();
+        }
     }
 
     //Even though we calculate damage per piece,
@@ -52,10 +61,6 @@ public class BotController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         _totalDamage += damage;
-        if (_totalDamage >= _totalHitpoints)
-        {
-            Lose();
-        }
     }
 
     public void AddHitpoints(int hitpoints)
@@ -80,17 +85,19 @@ public class BotController : MonoBehaviour
             Destroy(gameObject.GetComponent<Rigidbody>());
             foreach (BodyPart b in bodyParts)
             {
+                b.Deactivate();
                 b.gameObject.AddComponent<Rigidbody>();
             }
 
             state = BotState.DEFEATED;
-            Debug.Log("YOU LOSE");
-            target.Win();
         }
     }
 
     public void Win()
     {
-        Debug.Log("YOU WIN");
+        foreach (BodyPart b in bodyParts)
+        {
+            b.Deactivate();
+        }
     }
 }

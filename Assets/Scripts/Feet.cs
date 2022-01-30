@@ -25,14 +25,14 @@ public class Feet : BodyPart
     // Update is called once per frame
     void Update()
     {
-        if (botController.State != BotState.DEFEATED)
+        if (botController.State != BotState.DEFEATED && botController.State != BotState.IN_ACTIVE)
         {
             Move();
         }
     }
 
     protected void Move()
-    {        
+    {
         Vector3 distance = botController.target.transform.position - botController.transform.position;
 
         Vector3 acceleration = Vector3.Normalize(distance);
@@ -40,20 +40,20 @@ public class Feet : BodyPart
         //TODO do we want any turning?
         //Vector3 movement = botController.transform.forward;
 
-        if(distance.magnitude > botController.GetDesiredMaxDistance() )
+        if (distance.magnitude > botController.GetDesiredMaxDistance())
         {
             acceleration *= accelerationForward;
             velocity += acceleration;
             //botController.transform.position += movement;
         }
-        else if(distance.magnitude < botController.GetDesiredMinDistance() )
+        else if (distance.magnitude < botController.GetDesiredMinDistance())
         {
             acceleration *= -accelerationReverse;
             velocity += acceleration;
             //botController.transform.position += movement;
         }
 
-        if(Random.value < jumpchance)
+        if (Random.value < jumpchance)
         {
             velocity += new Vector3(0f, .05f, 0f);
         }
