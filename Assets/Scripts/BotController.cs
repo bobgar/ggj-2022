@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum BotState
 {
+    STARTING,
     ENGAGE,
     DEFEATED
 }
@@ -16,9 +17,13 @@ public class BotController : MonoBehaviour
     public BotController target;
 
     //Keeping things flexible with a list of body parts for now.
-    public BodyPart[] bodyParts;
+    public BodyPart[] activeParts;
+
+    public BodyPart[] allParts;
 
     private BotState state = BotState.ENGAGE;
+
+    public Collider[] childrenColliders;
 
     public BotState State // property
     {
@@ -36,6 +41,7 @@ public class BotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        childrenColliders = GetComponentsInChildren<Collider>();
     }
 
     // Update is called once per frame
@@ -72,10 +78,10 @@ public class BotController : MonoBehaviour
 
     public void Lose()
     {
-        if (state != BotState.DEFEATED)
+        if (state == BotState.ENGAGE)
         {
             Destroy(gameObject.GetComponent<Rigidbody>());
-            foreach (BodyPart b in bodyParts)
+            foreach (BodyPart b in activeParts)
             {
                 b.gameObject.AddComponent<Rigidbody>();
             }

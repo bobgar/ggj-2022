@@ -45,14 +45,14 @@ public class Weapon : MonoBehaviour
             audioSource.Play();
         }
 
-        if (enemyBot.bodyParts.Length < 1)
+        if (enemyBot.activeParts.Length < 1)
         {
             Debug.Log("Enemy target " + enemyBot.name + " has no body parts!");
             return;
         }
 
         List<BodyPart> liveParts = new List<BodyPart>();
-        foreach (BodyPart part in enemyBot.bodyParts)
+        foreach (BodyPart part in enemyBot.activeParts)
         {
             if (part.state != BodyPartState.DESTROYED)
             {
