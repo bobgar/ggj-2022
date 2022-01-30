@@ -2,7 +2,10 @@ fileFormatVersion: 2
 guid: 37047891f99ef2a409ab37893eaf0fa6
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -5039502037444590982
+    second: Globe Theatre LP|Globe Theatre WrapAction
   externalObjects: {}
   materials:
     materialImportMode: 2
