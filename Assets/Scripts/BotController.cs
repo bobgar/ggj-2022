@@ -56,6 +56,11 @@ public class BotController : MonoBehaviour
         }
     }
 
+    public float GetDamage()
+    {
+        return _totalDamage;
+    }
+
     //Even though we calculate damage per piece,
     //this accumulates global damage for if we want to show a health bar etc.
     public void TakeDamage(int damage)
