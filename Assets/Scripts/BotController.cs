@@ -20,6 +20,8 @@ public class BotController : MonoBehaviour
 
     private BotState state = BotState.ENGAGE;
 
+    public Collider[] childrenColliders;
+
     public BotState State // property
     {
         get { return state; } // get method
@@ -36,6 +38,7 @@ public class BotController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        childrenColliders = GetComponentsInChildren<Collider>();
     }
 
     // Update is called once per frame

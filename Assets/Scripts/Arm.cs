@@ -43,7 +43,7 @@ public class Arm : BodyPart
             if (_weapon)
             {
                 animator.SetTrigger("Attack" );
-                _weapon.Fire(botController.target);
+                _weapon.Fire(this, botController.target, botController.childrenColliders);
                 yield return new WaitForSeconds(_weapon.attackRate);
             }
             else
