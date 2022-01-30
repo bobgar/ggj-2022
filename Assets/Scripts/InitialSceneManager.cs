@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [System.Serializable]
 public class DialogSection
@@ -9,14 +10,16 @@ public class DialogSection
     public string dialogID;
 }
 
-
 public class InitialSceneManager : MonoBehaviour
 {
     public DialogSection[] dialogSequenceIDs;
     public DialogWindow DialogWindow;
+    public CanvasGroup ContinuePanel;
 
     private int currentSequence = 0;
     private Animator sceneAnimator;
+    private bool sceneStart = false;
+
     private static InitialSceneManager _instance;
     public static InitialSceneManager Instance
     {
@@ -39,18 +42,36 @@ public class InitialSceneManager : MonoBehaviour
     private void Start()
     {
         currentSequence = 0;
-        TriggerNextDialog();
+        StartCoroutine( OpeningSequence() );
+    }
+
+    IEnumerator OpeningSequence()
+    {
+        yield return new WaitForSeconds(1.0f);
+        TweenParams tParms = new TweenParams().SetLoops(-1).SetEase(Ease.Linear);
+        ContinuePanel.DOFade(1.0f, 1.5f).OnComplete(() =>
+            ContinuePanel.DOFade(0.75f, 2.0f).SetAs(tParms)
+        );
+        sceneStart = true;
     }
 
     private void Update()
     {
-        if( Input.GetMouseButtonDown(0) )
+        if( Input.GetMouseButtonDown(0) && sceneStart)
         {
+            ContinuePanel.DOKill();
+            ContinuePanel.alpha = 0.0f;
+
+            if (DialogWindow.GetComponent<CanvasGroup>().alpha == 0.0f )
+            {
+                DialogWindow.GetComponent<CanvasGroup>().DOFade(1.0f, 0.25f).SetEase(Ease.OutQuad);
+            }
+
             if (currentSequence >= dialogSequenceIDs.Length)
             {
                 SceneLoader.instance.LoadScene(SceneEnum.BATTLE);
                 SceneLoader.instance.LoadScene(SceneEnum.PLAN);
-                SceneLoader.instance.RemoveScene(SceneEnum.INIT);
+                SceneLoader.instance.RemoveScene(SceneEnum.DIALOG);
             }
             else
             {
@@ -97,6 +118,9 @@ public class InitialSceneManager : MonoBehaviour
         sceneAnimator.SetBool("MichealTalk", false);
         sceneAnimator.SetBool("TitianTalk", false);
 
-
+        TweenParams tParms = new TweenParams().SetLoops(-1).SetEase(Ease.Linear);
+        ContinuePanel.DOFade(1.0f, 1.5f).OnComplete(() =>
+            ContinuePanel.DOFade(0.75f, 2.0f).SetAs(tParms)
+        );
     }
 }
