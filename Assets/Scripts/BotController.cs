@@ -103,7 +103,7 @@ public class BotController : MonoBehaviour
 
     public void Win()
     {
-        foreach (BodyPart b in bodyParts)
+        foreach (BodyPart b in activeParts)
         {
             b.Deactivate();
         }
