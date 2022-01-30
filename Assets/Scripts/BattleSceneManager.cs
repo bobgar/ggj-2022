@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleSceneManager : MonoBehaviour
 {
@@ -10,16 +11,14 @@ public class BattleSceneManager : MonoBehaviour
     public BotController LeftBot;
     public BotController RightBot;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Slider leftHealth;
+    public Slider rightHealth;
 
     // Update is called once per frame
     void Update()
     {
-        
+        leftHealth.value = LeftBot.GetHealthPercentage();
+        rightHealth.value = RightBot.GetHealthPercentage();
     }
 
     public void StartCamera()
