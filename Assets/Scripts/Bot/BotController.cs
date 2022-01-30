@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public enum BotState
 {
@@ -22,9 +23,11 @@ public class BotController : MonoBehaviour
     public BodyPart[] activeParts;
 
     public BodyPart[] allParts;
+    
+    public Dictionary<Part, BodyPart> parts;
 
     private BotState state = BotState.STARTING;
-
+    
     public Collider[] childrenColliders;
 
     public BotState State // property
@@ -44,6 +47,60 @@ public class BotController : MonoBehaviour
     void Start()
     {
         childrenColliders = GetComponentsInChildren<Collider>();
+
+        foreach(BodyPart b in allParts)
+        {            
+            switch (b.name){
+                case "Chest Piece":
+                    parts.Add(Part.CHEST, b);
+                    break;
+                case "Head_Basic":
+                    parts.Add(Part.BASIC_HEAD, b);                    
+                    break;
+                case "Wheels_2 pair":
+                    parts.Add(Part.WHEELS, b);
+                    break;
+                case "Tank Threads":
+                    parts.Add(Part.TANK_TREADS, b);
+                    break;
+                case "Sythe Arms L":
+                    parts.Add(Part.SYTHE_ARM_LEFT, b);
+                    break;
+                case "Sythe Arms R":
+                    parts.Add(Part.SYTHE_ARM_RIGHT, b);
+                    break;
+                case "Windmill Arms L":
+                    parts.Add(Part.WINDMILL_ARM_LEFT, b);
+                    break;
+                case "Windmill Arms R":
+                    parts.Add(Part.WINDMILL_ARM_RIGHT, b);
+                    break;
+                case "Hammer Hand L":
+                    parts.Add(Part.HAMMER_ARM_LEFT, b);
+                    break;
+                case "Hammer Hand R":
+                    parts.Add(Part.HAMMER_ARM_RIGHT, b);
+                    break;
+                case "Dragon Claw Feet":
+                    parts.Add(Part.DRAGON_CLAW_FEET, b);
+                    break;
+                case "Cannon Head":
+                    parts.Add(Part.DRAGON_CLAW_FEET, b);
+                    break;
+            }
+            b.gameObject.SetActive(false);
+        }
+        parts[Part.CHEST].gameObject.SetActive(true);
+    }
+
+    public void AddPiece(Part part)
+    {
+        parts[part].gameObject.SetActive(true);
+    }
+
+    public void RemovePiece(Part part)
+    {
+        parts[part].gameObject.SetActive(false);
     }
 
     // Update is called once per frame

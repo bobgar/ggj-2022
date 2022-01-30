@@ -12,11 +12,28 @@ public enum DropType
     Body
 }
 
+public enum DropPart
+{
+    //Chest
+    CHEST,
+    //Heads
+    BASIC_HEAD,
+    TANK_HEAD,
+    //Feet
+    WHEELS,
+    TANK_TREADS,
+    DRAGON_CLAW_FEET,
+    //Arms
+    SYTHE_ARM,
+    WINDMILL_ARM,
+    HAMMER_ARM,
+}
 
 public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public RectTransform rectTransform;
     public DropType dropType = DropType.None;
+    public DropPart dropPart;
 
     private Transform lastPosition;
     private Canvas canvas;

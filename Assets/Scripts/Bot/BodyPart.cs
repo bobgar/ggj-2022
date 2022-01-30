@@ -4,6 +4,28 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+public enum Part
+{
+    //Chest
+    CHEST,
+    //Heads
+    BASIC_HEAD,
+    TANK_HEAD,
+    //Feet
+    WHEELS,
+    TANK_TREADS,
+    DRAGON_CLAW_FEET,
+    //Left Arms
+    SYTHE_ARM_LEFT,
+    WINDMILL_ARM_LEFT,
+    HAMMER_ARM_LEFT,
+    //Right Arms
+    SYTHE_ARM_RIGHT,
+    WINDMILL_ARM_RIGHT,
+    HAMMER_ARM_RIGHT,
+}
+
 public enum BodyPartState
 {
     NORMAL,

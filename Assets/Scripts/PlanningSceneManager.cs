@@ -7,6 +7,9 @@ public class PlanningSceneManager : MonoBehaviour
 {
     public Canvas gameCanvas;
 
+    public BotController LeftBot;
+    public BotController RightBot;
+
     private static PlanningSceneManager _instance;
     public static PlanningSceneManager Instance
     {
@@ -24,6 +27,25 @@ public class PlanningSceneManager : MonoBehaviour
     {
         _instance = this;
         gameCanvas = GetComponent<Canvas>();
+    }
+
+    private void Start()
+    {
+        Scene s = SceneLoader.instance.GetScene(SceneEnum.BATTLE);
+        foreach (GameObject g in s.GetRootGameObjects())
+        {
+            if (g.GetComponent<BotController>() != null)
+            {
+                if (g.name == "Left Bot")
+                {
+                    LeftBot = g.GetComponent<BotController>();
+                }
+                if (g.name == "Right Bot")
+                {
+                    RightBot = g.GetComponent<BotController>();
+                }
+            }
+        }
     }
 
     public void Fight()
