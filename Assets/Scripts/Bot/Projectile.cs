@@ -1,15 +1,9 @@
-using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Vector3 _direction;
     [SerializeField] private float moveSpeed;
-
-    public void Setup(Vector3 direction)
-    {
-        this._direction = direction;
-    }
+    private Vector3 _direction;
 
     private void Update()
     {
@@ -19,5 +13,10 @@ public class Projectile : MonoBehaviour
     private void OnCollisionEnter(Collision other)
     {
         Destroy(gameObject);
+    }
+
+    public void Setup(Vector3 direction)
+    {
+        _direction = direction;
     }
 }

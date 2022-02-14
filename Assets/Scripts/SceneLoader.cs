@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,22 +13,21 @@ public enum SceneEnum
 
 public class SceneLoader : MonoBehaviour
 {
+    public static SceneLoader instance;
     public AudioSource menuMusic;
     public AudioSource battleMusic;
 
-    public static SceneLoader instance;
-
-    public Dictionary<SceneEnum, string> scenes = new Dictionary<SceneEnum, string>()
+    public Dictionary<SceneEnum, string> scenes = new()
     {
-        { SceneEnum.START,"Start Scene" },
-        { SceneEnum.DIALOG,"Dialog Scene" },
-        { SceneEnum.PLAN ,"Planning Scene" },
-        { SceneEnum.BATTLE,"Battle Scene" },        
-        { SceneEnum.END,"Round End Scene" }
+        { SceneEnum.START, "Start Scene" },
+        { SceneEnum.DIALOG, "Dialog Scene" },
+        { SceneEnum.PLAN, "Planning Scene" },
+        { SceneEnum.BATTLE, "Battle Scene" },
+        { SceneEnum.END, "Round End Scene" }
     };
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         instance = this;
         SceneManager.LoadScene(scenes[SceneEnum.START], LoadSceneMode.Additive);
@@ -39,7 +37,7 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene(scenes[scene], LoadSceneMode.Additive);
 
-        if(scene == SceneEnum.DIALOG || scene == SceneEnum.END)
+        if (scene == SceneEnum.DIALOG || scene == SceneEnum.END)
         {
             menuMusic.Play();
             battleMusic.Stop();
@@ -60,5 +58,4 @@ public class SceneLoader : MonoBehaviour
     {
         return SceneManager.GetSceneByName(scenes[scene]);
     }
-
 }

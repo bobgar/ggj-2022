@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public enum Speaker
-{ 
+{
     none = 0,
     michelangelo,
     titian
@@ -13,20 +11,20 @@ public enum Speaker
 
 public class DialogWindow : MonoBehaviour
 {
+    private const string MichelangeloName = "Michelangelo";
+    private const string TitianName = "Titian";
     public Text DialogText;
     public Text SpeakerLabel;
     public GameObject MichelangeloSprite;
     public GameObject TitianSprite;
 
-    private const string MichelangeloName = "Michelangelo";
-    private const string TitianName = "Titian";
-
     public void SetText(string text)
     {
         DialogText.text = "";
-        float time = text.Length / 50.0f;
+        var time = text.Length / 50.0f;
         DialogText.DOText(text, time).SetEase(Ease.Linear);
     }
+
     public void SetSpeaker(Speaker speaker)
     {
         if (speaker == Speaker.michelangelo)

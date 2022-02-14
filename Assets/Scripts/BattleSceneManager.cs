@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,14 +13,14 @@ public class BattleSceneManager : MonoBehaviour
     public Slider rightHealth;
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         leftHealth.value = LeftBot.GetHealthPercentage();
         rightHealth.value = RightBot.GetHealthPercentage();
     }
 
     public void StartCamera()
-    {        
+    {
         cameraSwoop.gameObject.SetActive(true);
     }
 
