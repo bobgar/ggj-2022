@@ -1,3 +1,4 @@
+using Bot;
 using UnityEngine;
 
 public class PlanningSceneManager : MonoBehaviour

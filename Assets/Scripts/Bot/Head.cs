@@ -1,45 +1,42 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Head : BodyPart
+namespace Bot
 {
-    [SerializeField] private Weapon _weapon;
-
-    private bool _isFirstFrame;
-
-    public void Start()
+    public class Head : BodyPart
     {
-        base.Start();
-        _isFirstFrame = true;
-    }
+        [SerializeField] private Weapon _weapon;
 
-    private void Update()
-    {
-        // We need this to prevent a race condition. If we start the coroutine
-        // in start, it's possible that a bot takes damage before it's summed it's
-        // total health using it's body parts.
-        if (_isFirstFrame)
+        private bool _isFirstFrame;
+
+        public void Start()
         {
-            StartCoroutine(Attack());
-            _isFirstFrame = false;
+            base.Start();
+            _isFirstFrame = true;
         }
 
-        if (state == BodyPartState.DESTROYED || state == BodyPartState.GAME_OVER)
+        private void Update()
         {
-            StopCoroutine(Attack());
-        }
-    }
-
-    private IEnumerator Attack()
-    {
-        while (hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
-        {
-            if (botController.State == BotState.FIGHTING)
+            // We need this to prevent a race condition. If we start the coroutine
+            // in start, it's possible that a bot takes damage before it's summed it's
+            // total health using it's body parts.
+            if (_isFirstFrame)
             {
-                _weapon.Fire(this, botController.target, botController.childrenColliders);                
+                StartCoroutine(Attack());
+                _isFirstFrame = false;
             }
-            yield return new WaitForSeconds(_weapon.attackRate);
+
+            if (state == BodyPartState.DESTROYED || state == BodyPartState.GAME_OVER) StopCoroutine(Attack());
+        }
+
+        private IEnumerator Attack()
+        {
+            while (hitpoints > 0 && _weapon && state != BodyPartState.DESTROYED && state != BodyPartState.GAME_OVER)
+            {
+                if (botController.State == BotState.FIGHTING)
+                    _weapon.Fire(this, botController.target, botController.childrenColliders);
+                yield return new WaitForSeconds(_weapon.attackRate);
+            }
         }
     }
 }
