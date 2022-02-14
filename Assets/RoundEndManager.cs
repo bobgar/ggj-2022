@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using DG.Tweening;
+using State;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
 
