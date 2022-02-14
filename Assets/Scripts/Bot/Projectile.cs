@@ -1,22 +1,25 @@
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace Bot
 {
-    [SerializeField] private float moveSpeed;
-    private Vector3 _direction;
-
-    private void Update()
+    public class Projectile : MonoBehaviour
     {
-        transform.position += _direction * moveSpeed * Time.deltaTime;
-    }
+        [SerializeField] private float moveSpeed;
+        private Vector3 _direction;
 
-    private void OnCollisionEnter(Collision other)
-    {
-        Destroy(gameObject);
-    }
+        private void Update()
+        {
+            transform.position += _direction * moveSpeed * Time.deltaTime;
+        }
 
-    public void Setup(Vector3 direction)
-    {
-        _direction = direction;
+        private void OnCollisionEnter(Collision other)
+        {
+            Destroy(gameObject);
+        }
+
+        public void Setup(Vector3 direction)
+        {
+            _direction = direction;
+        }
     }
 }

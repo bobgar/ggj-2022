@@ -1,245 +1,223 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using System;
 
-public enum BotState
+namespace Bot
 {
-    STARTING,
-    FIGHTING,
-    VICTORIOUS,
-    DEFEATED
-}
-
-public class BotController : MonoBehaviour
-{
-    //Note, for our game the target will be the other bot, probably always.
-    //Body parts will grab this as needed to take actions on targets (aim, do damage, fire projectiles, etc.)
-    //If we ever have more than two bots or more than two targets we may need to change this to an interface.
-    public BotController target;
-
-    //Keeping things flexible with a list of body parts for now.
-    public BodyPart[] activeParts;
-
-    public BodyPart[] allParts;
-    
-    public Dictionary<Part, BodyPart> parts = new Dictionary<Part, BodyPart>();
-
-    private BotState state = BotState.STARTING;
-    
-    public Collider[] childrenColliders;
-
-    public BotState State // property
+    public enum BotState
     {
-        get { return state; } // get method
+        STARTING,
+        FIGHTING,
+        VICTORIOUS,
+        DEFEATED
+    }
+
+    public class BotController : MonoBehaviour
+    {
+        //Note, for our game the target will be the other bot, probably always.
+        //Body parts will grab this as needed to take actions on targets (aim, do damage, fire projectiles, etc.)
+        //If we ever have more than two bots or more than two targets we may need to change this to an interface.
+        public BotController target;
+
+        //Keeping things flexible with a list of body parts for now.
+        public BodyPart[] activeParts;
+
+        public BodyPart[] allParts;
+
+        public Collider[] childrenColliders;
+
+        //TODO:  This will be calculated from the weapons.
+        public float desiredDistance = 15f;
+        public float acceptableDistnaceRange = 2.5f;
+        private int _totalDamage;
+
+        private int _totalHitpoints;
+
+        public Dictionary<Part, BodyPart> parts = new();
+
+        public BotState State { get; private set; } = BotState.STARTING;
+
+        // get method
         //set { name = value; }  // set method
-    }
+        // Start is called before the first frame update
+        private void Start()
+        {
+            childrenColliders = GetComponentsInChildren<Collider>();
 
-    private int _totalHitpoints = 0;
-    private int _totalDamage = 0;
+            foreach (var b in allParts)
+            {
+                switch (b.name)
+                {
+                    case "Chest Piece":
+                        parts.Add(Part.CHEST, b);
+                        break;
+                    case "Head_Basic":
+                        parts.Add(Part.BASIC_HEAD, b);
+                        break;
+                    case "Wheels_2 pair":
+                        parts.Add(Part.WHEELS, b);
+                        break;
+                    case "Tank Threads":
+                        parts.Add(Part.TANK_TREADS, b);
+                        break;
+                    case "Sythe Arms L":
+                        parts.Add(Part.SYTHE_ARM_LEFT, b);
+                        break;
+                    case "Sythe Arms R":
+                        parts.Add(Part.SYTHE_ARM_RIGHT, b);
+                        break;
+                    case "Windmill Arm L":
+                        parts.Add(Part.WINDMILL_ARM_LEFT, b);
+                        break;
+                    case "Windmill Arm R":
+                        parts.Add(Part.WINDMILL_ARM_RIGHT, b);
+                        break;
+                    case "Hammer Hand L":
+                        parts.Add(Part.HAMMER_ARM_LEFT, b);
+                        break;
+                    case "Hammer Hand R":
+                        parts.Add(Part.HAMMER_ARM_RIGHT, b);
+                        break;
+                    case "Dragon Claw Feet":
+                        parts.Add(Part.DRAGON_CLAW_FEET, b);
+                        break;
+                    case "Cannon Head":
+                        parts.Add(Part.TANK_HEAD, b);
+                        break;
+                }
 
-    //TODO:  This will be calculated from the weapons.
-    public float desiredDistance = 15f;
-    public float acceptableDistnaceRange = 2.5f;
+                b.gameObject.SetActive(false);
+            }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        childrenColliders = GetComponentsInChildren<Collider>();
+            //Set the CHEST to active.
+            parts[Part.CHEST].gameObject.SetActive(true);
+        }
 
-        foreach(BodyPart b in allParts)
-        {            
-            switch (b.name){
+        // Update is called once per frame
+        private void Update()
+        {
+        }
+
+        private void LateUpdate()
+        {
+            if (_totalDamage >= _totalHitpoints) Lose();
+        }
+
+        public void AddPiece(Part part)
+        {
+            if (parts.ContainsKey(part)) parts[part].gameObject.SetActive(true);
+        }
+
+        public void RemovePiece(Part part)
+        {
+            if (parts.ContainsKey(part)) parts[part].gameObject.SetActive(false);
+        }
+
+        public Dictionary<Part, float> GetDamageByPart()
+        {
+            var damageByPart = new Dictionary<Part, float>();
+            foreach (var bodyPart in allParts) damageByPart[partByName(bodyPart)] = bodyPart.GetHitPoints();
+
+            return damageByPart;
+        }
+
+        private Part partByName(BodyPart bodyPart)
+        {
+            switch (bodyPart.name)
+            {
                 case "Chest Piece":
-                    parts.Add(Part.CHEST, b);
-                    break;
+                    return Part.CHEST;
                 case "Head_Basic":
-                    parts.Add(Part.BASIC_HEAD, b);
-                    break;
+                    return Part.BASIC_HEAD;
                 case "Wheels_2 pair":
-                    parts.Add(Part.WHEELS, b);
-                    break;
+                    return Part.WHEELS;
                 case "Tank Threads":
-                    parts.Add(Part.TANK_TREADS, b);
-                    break;
+                    return Part.TANK_TREADS;
                 case "Sythe Arms L":
-                    parts.Add(Part.SYTHE_ARM_LEFT, b);
-                    break;
+                    return Part.SYTHE_ARM_LEFT;
                 case "Sythe Arms R":
-                    parts.Add(Part.SYTHE_ARM_RIGHT, b);
-                    break;
-                case "Windmill Arm L":
-                    parts.Add(Part.WINDMILL_ARM_LEFT, b);
-                    break;
-                case "Windmill Arm R":
-                    parts.Add(Part.WINDMILL_ARM_RIGHT, b);
-                    break;
+                    return Part.SYTHE_ARM_RIGHT;
+                case "Windmill Arms L":
+                    return Part.WINDMILL_ARM_LEFT;
+                case "Windmill Arms R":
+                    return Part.WINDMILL_ARM_RIGHT;
                 case "Hammer Hand L":
-                    parts.Add(Part.HAMMER_ARM_LEFT, b);
-                    break;
+                    return Part.HAMMER_ARM_LEFT;
                 case "Hammer Hand R":
-                    parts.Add(Part.HAMMER_ARM_RIGHT, b);
-                    break;
+                    return Part.HAMMER_ARM_RIGHT;
                 case "Dragon Claw Feet":
-                    parts.Add(Part.DRAGON_CLAW_FEET, b);
-                    break;
+                    return Part.DRAGON_CLAW_FEET;
                 case "Cannon Head":
-                    parts.Add(Part.TANK_HEAD, b);
-                    break;
+                    return Part.TANK_HEAD;
             }
-            b.gameObject.SetActive(false);
-        }
-        //Set the CHEST to active.
-        parts[Part.CHEST].gameObject.SetActive(true);
-    }
 
-    public void AddPiece(Part part)
-    {
-        if (parts.ContainsKey(part))
+            // Hack to handle missing part
+            return Part.CHEST;
+        }
+
+        public float GetDamage()
         {
-            parts[part].gameObject.SetActive(true);
+            return _totalDamage;
         }
-    }
 
-    public void RemovePiece(Part part)
-    {
-        if (parts.ContainsKey(part)){
-            parts[part].gameObject.SetActive(false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    public Dictionary<Part, float> GetDamageByPart()
-    {
-        Dictionary<Part, float> damageByPart = new Dictionary<Part, float>();
-        foreach (BodyPart bodyPart in allParts)
+        //Even though we calculate damage per piece,
+        //this accumulates global damage for if we want to show a health bar etc.
+        public void TakeDamage(int damage)
         {
-            damageByPart[partByName(bodyPart)] = bodyPart.GetHitPoints();
+            _totalDamage += damage;
         }
 
-        return damageByPart;
-    }
-
-    private Part partByName(BodyPart bodyPart)
-    {
-        switch (bodyPart.name)
+        public void AddHitpoints(int hitpoints)
         {
-            case "Chest Piece":
-                return Part.CHEST;
-            case "Head_Basic":
-                return Part.BASIC_HEAD;
-            case "Wheels_2 pair":
-                return Part.WHEELS;
-            case "Tank Threads":
-                return Part.TANK_TREADS;
-            case "Sythe Arms L":
-                return Part.SYTHE_ARM_LEFT;
-            case "Sythe Arms R":
-                return Part.SYTHE_ARM_RIGHT;
-            case "Windmill Arms L":
-                return Part.WINDMILL_ARM_LEFT;
-            case "Windmill Arms R":
-                return Part.WINDMILL_ARM_RIGHT;
-            case "Hammer Hand L":
-                return Part.HAMMER_ARM_LEFT;
-            case "Hammer Hand R":
-                return Part.HAMMER_ARM_RIGHT;
-            case "Dragon Claw Feet":
-                return Part.DRAGON_CLAW_FEET;
-            case "Cannon Head":
-                return Part.TANK_HEAD;
+            _totalHitpoints += hitpoints;
         }
 
-        // Hack to handle missing part
-        return Part.CHEST;
-    }
-
-    private void LateUpdate()
-    {
-        if (_totalDamage >= _totalHitpoints)
+        public float GetDesiredMinDistance()
         {
-            Lose();
+            return desiredDistance - acceptableDistnaceRange;
         }
-    }
 
-    public float GetDamage()
-    {
-        return _totalDamage;
-    }
-
-    //Even though we calculate damage per piece,
-    //this accumulates global damage for if we want to show a health bar etc.
-    public void TakeDamage(int damage)
-    {
-        _totalDamage += damage;
-    }
-
-    public void AddHitpoints(int hitpoints)
-    {
-        _totalHitpoints += hitpoints;
-    }
-
-    public float GetDesiredMinDistance()
-    {
-        return desiredDistance - acceptableDistnaceRange;
-    }
-
-    public float GetDesiredMaxDistance()
-    {
-        return desiredDistance + acceptableDistnaceRange;
-    }
-
-    public void Lose()
-    {
-        if (state == BotState.FIGHTING)
+        public float GetDesiredMaxDistance()
         {
-            Destroy(gameObject.GetComponent<Rigidbody>());
-            foreach (BodyPart b in activeParts)
+            return desiredDistance + acceptableDistnaceRange;
+        }
+
+        public void Lose()
+        {
+            if (State == BotState.FIGHTING)
             {
-                b.Deactivate();
-                b.gameObject.AddComponent<Rigidbody>();
+                Destroy(gameObject.GetComponent<Rigidbody>());
+                foreach (var b in activeParts)
+                {
+                    b.Deactivate();
+                    b.gameObject.AddComponent<Rigidbody>();
+                }
+
+                State = BotState.DEFEATED;
             }
-
-            state = BotState.DEFEATED;
         }
-    }
 
-    public void Win()
-    {
-        if (state == BotState.FIGHTING)
+        public void Win()
         {
-            foreach (BodyPart b in activeParts)
+            if (State == BotState.FIGHTING)
             {
-                b.Deactivate();
+                foreach (var b in activeParts) b.Deactivate();
+                State = BotState.VICTORIOUS;
             }
-            state = BotState.VICTORIOUS;
-        }
-    }
-
-    public void StartBattle()
-    {
-        activeParts = gameObject.GetComponentsInChildren<BodyPart>(false);
-        
-        foreach(BodyPart bp in activeParts)
-        {
-            AddHitpoints(bp.maxHitpoints);
         }
 
-        state = BotState.FIGHTING;
-    }
+        public void StartBattle()
+        {
+            activeParts = gameObject.GetComponentsInChildren<BodyPart>(false);
 
-    public float GetHealthPercentage()
-    {
-        if (_totalHitpoints > 0)
+            foreach (var bp in activeParts) AddHitpoints(bp.maxHitpoints);
+
+            State = BotState.FIGHTING;
+        }
+
+        public float GetHealthPercentage()
         {
-            return 1 - ((float)_totalDamage) / ((float)_totalHitpoints);
-        } else
-        {
+            if (_totalHitpoints > 0)
+                return 1 - _totalDamage / (float)_totalHitpoints;
             return 1;
         }
     }

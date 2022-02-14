@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Bot;
 using UnityEngine;
 
 public class Match : MonoBehaviour
@@ -37,9 +38,11 @@ public class Match : MonoBehaviour
             timer.Stop();
             timer.SetText("Left wins!");
 
-            var damageByPartList = new List<Dictionary<Part, float>>();
-            damageByPartList.Add(left.GetDamageByPart());
-            damageByPartList.Add(right.GetDamageByPart());
+            var damageByPartList = new List<Dictionary<Part, float>>
+            {
+                left.GetDamageByPart(),
+                right.GetDamageByPart()
+            };
             var result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
             GameMaster.Instance.AddMatchResult(result);
 

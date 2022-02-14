@@ -14,19 +14,17 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        if (timerIsRunning)
+        if (!timerIsRunning) return;
+        if (timeRemaining > 0)
         {
-            if (timeRemaining > 0)
-            {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
-            }
-            else
-            {
-                Debug.Log("Time has run out!");
-                timeRemaining = 0;
-                timerIsRunning = false;
-            }
+            timeRemaining -= Time.deltaTime;
+            DisplayTime(timeRemaining);
+        }
+        else
+        {
+            Debug.Log("Time has run out!");
+            timeRemaining = 0;
+            timerIsRunning = false;
         }
     }
 

@@ -1,81 +1,57 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = System.Random;
 
-
-public class Weapon : MonoBehaviour
+namespace Bot
 {
-    enum attackType
+    public class Weapon : MonoBehaviour
     {
-        MELEE,
-        RANGED_SINGLE_POINT,
-        RANGED_AOE,
-        RANGED_PROJECTILE,
-    }
+        [SerializeField] private float range;
+        [SerializeField] private int damage;
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] public float attackRate;
 
-    enum damageType
-    {
-        PIERCE,
-        SLASH,
-        BLUNT,
-        FIRE
-    }
-
-    [SerializeField] private float range;
-    [SerializeField] private int damage;
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] public float attackRate;
-
-    public Weapon()
-    {
-        if (audioSource)
+        public Weapon()
         {
-            audioSource.playOnAwake = false;
-            audioSource.loop = false;
-        }
-    }
-
-    protected virtual void FireEffect(BodyPart target, Vector3 position, Collider[] ignored)
-    {
-    }
-
-    public virtual void Fire(BodyPart instigator, BotController enemyBot, Collider[] ignored)
-    {
-        if (enemyBot.activeParts.Length < 1)
-        {
-            Debug.Log("Enemy target " + enemyBot.name + " has no body parts!");
-            return;
-        }
-
-        List<BodyPart> liveParts = new List<BodyPart>();
-        foreach (BodyPart part in enemyBot.activeParts)
-        {
-            if (part.state != BodyPartState.DESTROYED)
+            if (audioSource)
             {
-                liveParts.Add(part);
+                audioSource.playOnAwake = false;
+                audioSource.loop = false;
             }
         }
 
-        if (liveParts.Count < 1)
+        protected virtual void FireEffect(BodyPart target, Vector3 position, Collider[] ignored)
         {
-            Debug.Log("Attacking " + enemyBot.name + " with no live body parts!");
-            return;
         }
 
-        BodyPart target = liveParts[new Random().Next(0, liveParts.Count)];
-        float distance = (transform.position - target.transform.position).magnitude;
-        if (distance > range) return;
-        
-        if (audioSource)
+        public virtual void Fire(BodyPart instigator, BotController enemyBot, Collider[] ignored)
         {
-            audioSource.Play();
-        }
-        FireEffect(target, instigator.transform.position, ignored);
+            if (enemyBot.activeParts.Length < 1)
+            {
+                Debug.Log("Enemy target " + enemyBot.name + " has no body parts!");
+                return;
+            }
 
-        Debug.Log(this.name + " attacks " + enemyBot.name + "'s " + target.name + " for " + damage);
-        target.TakeDamage(damage);
+            var liveParts = new List<BodyPart>();
+            foreach (var part in enemyBot.activeParts)
+                if (part.state != BodyPartState.DESTROYED)
+                    liveParts.Add(part);
+
+            if (liveParts.Count < 1)
+            {
+                Debug.Log("Attacking " + enemyBot.name + " with no live body parts!");
+                return;
+            }
+
+            var target = liveParts[new Random().Next(0, liveParts.Count)];
+            var distance = (transform.position - target.transform.position).magnitude;
+            if (distance > range) return;
+
+            if (audioSource) audioSource.Play();
+            FireEffect(target, instigator.transform.position, ignored);
+
+            Debug.Log(name + " attacks " + enemyBot.name + "'s " + target.name + " for " + damage);
+            target.TakeDamage(damage);
+        }
     }
 }
