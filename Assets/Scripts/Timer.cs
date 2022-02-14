@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
     public float timeRemaining = 10;
-    public bool timerIsRunning = false;
+    public bool timerIsRunning;
     public Text timeText;
 
     private void Start()
@@ -14,7 +12,7 @@ public class Timer : MonoBehaviour
         timerIsRunning = true;
     }
 
-    void Update()
+    private void Update()
     {
         if (timerIsRunning)
         {
@@ -36,7 +34,7 @@ public class Timer : MonoBehaviour
     {
         return timeRemaining;
     }
-    
+
     public void SetText(string text)
     {
         timeText.text = text;
@@ -47,7 +45,7 @@ public class Timer : MonoBehaviour
         timerIsRunning = false;
     }
 
-    void DisplayTime(float timeToDisplay)
+    private void DisplayTime(float timeToDisplay)
     {
         timeToDisplay += 1;
 

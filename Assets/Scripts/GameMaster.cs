@@ -9,27 +9,21 @@ public class GameMaster : MonoBehaviour
         TITIAN
     }
 
-    private static GameMaster _gm;
-
     [SerializeField] private int matchesToWin = 3;
-    private float _score = 0;
-    private int _michelangeloWins = 0;
-    private int _titianWins = 0;
 
-    private List<MatchResult> matchResults = new List<MatchResult>();
+    private readonly List<MatchResult> matchResults = new();
+    private int _michelangeloWins;
+    private float _score;
+    private int _titianWins;
 
-    public static GameMaster Instance => _gm;
+    public static GameMaster Instance { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
-        if (_gm != null && _gm != this)
-        {
-            GameObject.Destroy(_gm);
-        }
+        if (Instance != null && Instance != this)
+            Destroy(Instance);
         else
-        {
-            _gm = this;
-        }
+            Instance = this;
 
         DontDestroyOnLoad(this);
     }
@@ -53,15 +47,9 @@ public class GameMaster : MonoBehaviour
     {
         if (!result.isTie)
         {
-            if (result.winner == Artist.TITIAN)
-            {
-                _titianWins++;
-            }
+            if (result.winner == Artist.TITIAN) _titianWins++;
 
-            if (result.winner == Artist.MICHELANGELO)
-            {
-                _michelangeloWins++;
-            }
+            if (result.winner == Artist.MICHELANGELO) _michelangeloWins++;
         }
 
         matchResults.Add(result);

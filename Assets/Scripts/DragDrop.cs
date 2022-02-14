@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public enum DropType
-{ 
+{
     None,
     Head,
     Arm,
@@ -16,17 +14,20 @@ public enum DropPart
 {
     //Chest
     CHEST,
+
     //Heads
     BASIC_HEAD,
     TANK_HEAD,
+
     //Feet
     WHEELS,
     TANK_TREADS,
     DRAGON_CLAW_FEET,
+
     //Arms
     SYTHE_ARM,
     WINDMILL_ARM,
-    HAMMER_ARM,
+    HAMMER_ARM
 }
 
 public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
@@ -34,12 +35,12 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     public RectTransform rectTransform;
     public DropType dropType = DropType.None;
     public DropPart dropPart;
-
-    private Transform lastPosition;
     private Canvas canvas;
     private CanvasGroup canvasGroup;
 
-    void Start()
+    private Transform lastPosition;
+
+    private void Start()
     {
         canvas = PlanningSceneManager.Instance.gameCanvas;
         rectTransform = GetComponent<RectTransform>();
@@ -47,7 +48,7 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
     }
 
     public void OnBeginDrag(PointerEventData eventData)
-    {        
+    {
         transform.parent.GetComponent<DropSlot>().ClearSlot();
         lastPosition = transform.parent;
         transform.SetParent(canvas.transform, true);
@@ -63,13 +64,11 @@ public class DragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDrag
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (eventData.pointerEnter == null || 
+        if (eventData.pointerEnter == null ||
             eventData.pointerEnter.GetComponent<DropSlot>() == null ||
             eventData.pointerEnter.GetComponent<DropSlot>().dropType != dropType)
-        {
             lastPosition.GetComponent<DropSlot>().AddPart(this);
-        }
-        
+
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
     }

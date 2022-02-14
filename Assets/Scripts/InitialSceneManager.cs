@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class DialogSection
 {
     public Speaker speaker;
@@ -12,23 +12,20 @@ public class DialogSection
 
 public class InitialSceneManager : MonoBehaviour
 {
+    private static InitialSceneManager _instance;
     public DialogSection[] dialogSequenceIDs;
     public DialogWindow DialogWindow;
     public CanvasGroup ContinuePanel;
 
-    private int currentSequence = 0;
+    private int currentSequence;
     private Animator sceneAnimator;
-    private bool sceneStart = false;
+    private bool sceneStart;
 
-    private static InitialSceneManager _instance;
     public static InitialSceneManager Instance
     {
         get
         {
-            if (_instance == null)
-            {
-                Debug.LogError("Initial Scene Manager is NULL!");
-            }
+            if (_instance == null) Debug.LogError("Initial Scene Manager is NULL!");
             return _instance;
         }
     }
@@ -42,30 +39,18 @@ public class InitialSceneManager : MonoBehaviour
     private void Start()
     {
         currentSequence = 0;
-        StartCoroutine( OpeningSequence() );
-    }
-
-    IEnumerator OpeningSequence()
-    {
-        yield return new WaitForSeconds(1.0f);
-        TweenParams tParms = new TweenParams().SetLoops(-1).SetEase(Ease.Linear);
-        ContinuePanel.DOFade(1.0f, 1.5f).OnComplete(() =>
-            ContinuePanel.DOFade(0.75f, 2.0f).SetAs(tParms)
-        );
-        sceneStart = true;
+        StartCoroutine(OpeningSequence());
     }
 
     private void Update()
     {
-        if( Input.GetMouseButtonDown(0) && sceneStart)
+        if (Input.GetMouseButtonDown(0) && sceneStart)
         {
             ContinuePanel.DOKill();
             ContinuePanel.alpha = 0.0f;
 
-            if (DialogWindow.GetComponent<CanvasGroup>().alpha == 0.0f )
-            {
+            if (DialogWindow.GetComponent<CanvasGroup>().alpha == 0.0f)
                 DialogWindow.GetComponent<CanvasGroup>().DOFade(1.0f, 0.25f).SetEase(Ease.OutQuad);
-            }
 
             if (currentSequence >= dialogSequenceIDs.Length)
             {
@@ -80,45 +65,46 @@ public class InitialSceneManager : MonoBehaviour
         }
     }
 
+    private IEnumerator OpeningSequence()
+    {
+        yield return new WaitForSeconds(1.0f);
+        var tParms = new TweenParams().SetLoops(-1).SetEase(Ease.Linear);
+        ContinuePanel.DOFade(1.0f, 1.5f).OnComplete(() =>
+            ContinuePanel.DOFade(0.75f, 2.0f).SetAs(tParms)
+        );
+        sceneStart = true;
+    }
+
     private void TriggerNextDialog()
     {
         //Check if our sequence is out of bounds.  If so return.
-        if(currentSequence >= dialogSequenceIDs.Length)
-        {
-            return;
-        }
+        if (currentSequence >= dialogSequenceIDs.Length) return;
 
-        string stringID = dialogSequenceIDs[currentSequence].dialogID;
-        string currentString = StringManager.Instance.GetString(stringID);
-        Speaker currentSpeaker = dialogSequenceIDs[currentSequence].speaker;
+        var stringID = dialogSequenceIDs[currentSequence].dialogID;
+        var currentString = StringManager.Instance.GetString(stringID);
+        var currentSpeaker = dialogSequenceIDs[currentSequence].speaker;
 
         StartCoroutine(PlayTalkingAnimation(currentSpeaker, currentString.Length / 50.0f));
         DialogWindow.SetSpeaker(currentSpeaker);
         DialogWindow.SetText(currentString);
 
-        currentSequence++;        
+        currentSequence++;
     }
 
-    IEnumerator PlayTalkingAnimation(Speaker speaker, float time)
+    private IEnumerator PlayTalkingAnimation(Speaker speaker, float time)
     {
         if (speaker == Speaker.michelangelo)
-        {
             sceneAnimator.SetBool("MichealTalk", true);
-        }
         else if (speaker == Speaker.titian)
-        {
             sceneAnimator.SetBool("TitianTalk", true);
-        }
         else
-        {
             Debug.LogError("Invalid Speaker!");
-        }
 
         yield return new WaitForSeconds(time);
         sceneAnimator.SetBool("MichealTalk", false);
         sceneAnimator.SetBool("TitianTalk", false);
 
-        TweenParams tParms = new TweenParams().SetLoops(-1).SetEase(Ease.Linear);
+        var tParms = new TweenParams().SetLoops(-1).SetEase(Ease.Linear);
         ContinuePanel.DOFade(1.0f, 1.5f).OnComplete(() =>
             ContinuePanel.DOFade(0.75f, 2.0f).SetAs(tParms)
         );

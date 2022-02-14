@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Match : MonoBehaviour
@@ -8,22 +8,22 @@ public class Match : MonoBehaviour
     [SerializeField] private BotController right;
     [SerializeField] private Timer timer;
 
-    private bool hasCompleted = false;
+    private bool hasCompleted;
 
-    void LateUpdate()
+    private void LateUpdate()
     {
-        if (timer.GetTime() <= 0 || (left.State == BotState.DEFEATED && right.State == BotState.DEFEATED))
+        if (timer.GetTime() <= 0 || left.State == BotState.DEFEATED && right.State == BotState.DEFEATED)
         {
             left.Lose();
             right.Lose();
             timer.Stop();
             timer.SetText("Draw!");
 
-            List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
+            var damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
 
-            MatchResult result = new MatchResult(true, damageByPartList);
+            var result = new MatchResult(true, damageByPartList);
 
             GameMaster.Instance.AddMatchResult(result);
 
@@ -37,10 +37,10 @@ public class Match : MonoBehaviour
             timer.Stop();
             timer.SetText("Left wins!");
 
-            List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
+            var damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
-            MatchResult result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
+            var result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
             GameMaster.Instance.AddMatchResult(result);
 
             StartCoroutine(waitForEnd());
@@ -53,12 +53,12 @@ public class Match : MonoBehaviour
             timer.Stop();
             timer.SetText("Right wins!");
 
-            List<Dictionary<Part, float>> damageByPartList = new List<Dictionary<Part, float>>();
+            var damageByPartList = new List<Dictionary<Part, float>>();
             damageByPartList.Add(left.GetDamageByPart());
             damageByPartList.Add(right.GetDamageByPart());
-            MatchResult result = new MatchResult(GameMaster.Artist.TITIAN, damageByPartList);
+            var result = new MatchResult(GameMaster.Artist.TITIAN, damageByPartList);
             GameMaster.Instance.AddMatchResult(result);
-            
+
             StartCoroutine(waitForEnd());
         }
     }
@@ -72,5 +72,4 @@ public class Match : MonoBehaviour
 
         Destroy(this);
     }
-
 }
