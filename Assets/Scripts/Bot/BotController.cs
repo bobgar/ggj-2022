@@ -31,6 +31,7 @@ namespace Bot
         private int _totalDamage;
 
         private int _totalHitpoints;
+        [SerializeField] private string displayName;
 
         public Dictionary<Part, BodyPart> parts = new();
 
@@ -219,6 +220,11 @@ namespace Bot
             if (_totalHitpoints > 0)
                 return 1 - _totalDamage / (float)_totalHitpoints;
             return 1;
+        }
+
+        public string getDisplayName()
+        {
+            return displayName;
         }
     }
 }

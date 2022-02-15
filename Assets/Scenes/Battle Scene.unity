@@ -583,6 +583,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1615799324}
+    - target: {fileID: 1215862797237531861, guid: ef06238126d12c04897585023564746b, type: 3}
+      propertyPath: displayName
+      value: Titian
+      objectReference: {fileID: 0}
     - target: {fileID: 4600824485546289346, guid: ef06238126d12c04897585023564746b, type: 3}
       propertyPath: audioSource
       value: 
@@ -3461,6 +3465,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1033507500}
+    - target: {fileID: 1215862797237531861, guid: ef06238126d12c04897585023564746b, type: 3}
+      propertyPath: displayName
+      value: Michelangeo
+      objectReference: {fileID: 0}
     - target: {fileID: 4600824485546289346, guid: ef06238126d12c04897585023564746b, type: 3}
       propertyPath: audioSource
       value: 
