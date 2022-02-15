@@ -13,15 +13,17 @@ namespace State
         [SerializeField] private BotController right;
         [SerializeField] private Timer timer;
 
-        private bool hasCompleted;
+        private bool _hasCompleted;
 
         private void LateUpdate()
         {
+            if (_hasCompleted) return;
+            
             if (timer.GetTime() <= 0 || left.State == BotState.DEFEATED && right.State == BotState.DEFEATED)
             {
+                timer.Stop();
                 left.Lose();
                 right.Lose();
-                timer.Stop();
                 timer.SetText("Draw!");
 
                 var damageByPartList = new List<Dictionary<Part, float>>();
@@ -29,18 +31,18 @@ namespace State
                 damageByPartList.Add(right.GetDamageByPart());
 
                 var result = new MatchResult(true, damageByPartList);
-
                 GameMaster.Instance.AddMatchResult(result);
-
-                Destroy(this);
+                
+                _hasCompleted = true;
+                StartCoroutine(WaitForEnd());
             }
 
-            if (right.State == BotState.DEFEATED && hasCompleted == false)
+            if (right.State == BotState.DEFEATED)
             {
-                hasCompleted = true;
-                left.Win();
                 timer.Stop();
-                timer.SetText("Left wins!");
+                left.Win();
+                right.Lose();
+                timer.SetText(left.getDisplayName() + " wins!");
 
                 var damageByPartList = new List<Dictionary<Part, float>>
                 {
@@ -50,15 +52,17 @@ namespace State
                 var result = new MatchResult(GameMaster.Artist.MICHELANGELO, damageByPartList);
                 GameMaster.Instance.AddMatchResult(result);
 
-                StartCoroutine(waitForEnd());
+                _hasCompleted = true;
+                StartCoroutine(WaitForEnd());
             }
 
-            if (left.State == BotState.DEFEATED && hasCompleted == false)
+            if (left.State == BotState.DEFEATED)
             {
-                hasCompleted = true;
-                right.Win();
                 timer.Stop();
-                timer.SetText("Right wins!");
+                right.Win();
+                left.Lose();
+                
+                timer.SetText(right.getDisplayName() + " wins!");
 
                 var damageByPartList = new List<Dictionary<Part, float>>();
                 damageByPartList.Add(left.GetDamageByPart());
@@ -66,11 +70,12 @@ namespace State
                 var result = new MatchResult(GameMaster.Artist.TITIAN, damageByPartList);
                 GameMaster.Instance.AddMatchResult(result);
 
-                StartCoroutine(waitForEnd());
+                _hasCompleted = true;
+                StartCoroutine(WaitForEnd());
             }
         }
 
-        private IEnumerator waitForEnd()
+        private IEnumerator WaitForEnd()
         {
             yield return new WaitForSeconds(3.0f);
 

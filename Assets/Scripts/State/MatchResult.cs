@@ -15,10 +15,16 @@ namespace State
             damageByPart = new Dictionary<Part, float>();
             foreach (var current in damageByParts)
             foreach (var entry in current)
+            {
                 if (damageByPart.ContainsKey(entry.Key))
+                {
                     damageByPart[entry.Key] += entry.Value;
+                }
                 else
+                {
                     damageByPart[entry.Key] = entry.Value;
+                }
+            }
         }
 
         public MatchResult(GameMaster.Artist winner, List<Dictionary<Part, float>> damageByParts)
@@ -26,17 +32,28 @@ namespace State
             this.winner = winner;
             damageByPart = new Dictionary<Part, float>();
             foreach (var current in damageByParts)
-            foreach (var entry in current)
-                if (damageByPart.ContainsKey(entry.Key))
-                    damageByPart[entry.Key] += entry.Value;
-                else
-                    damageByPart[entry.Key] = entry.Value;
+            {
+                foreach (var (key, value) in current)
+                {
+                    if (damageByPart.ContainsKey(key))
+                    {
+                        damageByPart[key] += value;
+                    }
+                    else
+                    {
+                        damageByPart[key] = value;
+                    }
+                }
+            }
         }
 
         public float GetScore()
         {
             float score = 0;
-            foreach (var entry in damageByPart) score += entry.Value;
+            foreach (var entry in damageByPart)
+            {
+                score += entry.Value;
+            }
 
             return score;
         }

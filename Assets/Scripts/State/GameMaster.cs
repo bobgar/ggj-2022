@@ -13,7 +13,7 @@ namespace State
 
         [SerializeField] private int matchesToWin = 3;
 
-        private readonly List<MatchResult> matchResults = new();
+        private readonly List<MatchResult> _matchResults = new();
         private int _michelangeloWins;
         private float _score;
         private int _titianWins;
@@ -23,9 +23,13 @@ namespace State
         private void Awake()
         {
             if (Instance != null && Instance != this)
+            {
                 Destroy(Instance);
+            }
             else
+            {
                 Instance = this;
+            }
 
             DontDestroyOnLoad(this);
         }
@@ -42,19 +46,25 @@ namespace State
 
         public List<MatchResult> GetMatchResults()
         {
-            return matchResults;
+            return _matchResults;
         }
 
         public void AddMatchResult(MatchResult result)
         {
             if (!result.isTie)
             {
-                if (result.winner == Artist.TITIAN) _titianWins++;
+                if (result.winner == Artist.TITIAN)
+                {
+                    _titianWins++;
+                }
 
-                if (result.winner == Artist.MICHELANGELO) _michelangeloWins++;
+                if (result.winner == Artist.MICHELANGELO)
+                {
+                    _michelangeloWins++;
+                }
             }
 
-            matchResults.Add(result);
+            _matchResults.Add(result);
             _score += result.GetScore();
         }
     }
